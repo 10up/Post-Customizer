@@ -1,6 +1,6 @@
 <?php
 
-namespace Scrivener\Customizer;
+namespace Customizer;
 
 class Section {
 

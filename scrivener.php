@@ -10,5 +10,5 @@ License: GPLv2 or later
 */
 
 // include our default customizer classes
-include_once( __DIR__ . '/classes/Scrivener/Customizer/Section.php' );
-include_once( __DIR__ . '/classes/Scrivener/Customizer/Core.php' );
+include_once( __DIR__ . '/classes/Customizer/Section.php' );
+include_once( __DIR__ . '/classes/Customizer/Core.php' );

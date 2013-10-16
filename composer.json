@@ -2,5 +2,11 @@
 	"name"       : "10up/scrivener",
 	"description": "!magic",
 	"license"    : "MIT",
-	"require"    : {}
+	"require"    : {},
+	"autoload"   : {
+		"psr-0": {
+			"Customizer\\": "classes/",
+			"Scrivener\\" : "classes/"
+		}
+	}
 }

@@ -1,3 +1,4 @@
+<?php
 /**
 Plugin Name: Scrivener
 Plugin URI: http://10up.com

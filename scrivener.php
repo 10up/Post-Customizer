@@ -8,3 +8,7 @@ Author: 10up
 Author URI: http://10up.com
 License: GPLv2 or later
 */
+
+// include our default customizer classes
+include_once( __DIR__ . '/classes/class-customizer-section.php' );
+include_once( __DIR__ . '/classes/class-customizer-core.php' );

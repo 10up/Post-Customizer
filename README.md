@@ -1,3 +1,7 @@
-## Todo
+# General
 
-[Parade](https://github.com/parade/customizer-demo) - An example of customizer code hacks from @darinkotter
+A WordPress plugin to enhance the post editor preview, mainly through proof of concept.
+
+## Links
+
+[Parade](https://github.com/parade/customizer-demo) - An example of customizer code hacks from @darinkotter.

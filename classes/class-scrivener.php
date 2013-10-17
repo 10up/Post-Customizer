@@ -26,7 +26,16 @@ class Scrivener {
 		if ( 'post.php' != $hook && 'post-new.php' != $hook )
 			return;
 
-		//wp_enqueue_script();
+		$base = plugins_url( '', dirname( __FILE__ ) );
+
+		// include the base component
+		wp_enqueue_script( 'scrivener', $base . '/js/app.js', array( 'backbone' ), '0.1', true );
+
+		// include our dependencies
+		wp_enqueue_script( 'scrivener-models-core', $base . '/js/models/core.js', array( 'scrivener' ) );
+
+		// include bootstrap
+		wp_enqueue_script( 'scrivener-bootstrap', $base . '/js/main.js', array( 'scrivener' ) );
 	}
 
 	/**

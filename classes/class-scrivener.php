@@ -10,8 +10,9 @@ class Scrivener {
 	 * @since 0.1.0
 	 */
 	private function __construct() {
-		add_filter( 'preview_post_link', array( $this, 'filter_preview_post_link' ) );
+		add_filter( 'preview_post_link',     array( $this, 'filter_preview_post_link' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'action_admin_enqueue_scripts' ) );
+		add_filter( 'admin_post_weiverp',    array( $this, 'is_this_real_life' ) );
 	}
 
 	/**
@@ -40,6 +41,18 @@ class Scrivener {
 	public function filter_preview_post_link( $link ) {
 		global $post;
 		return add_query_arg( array( 'action' => 'weiverp', 'p' => $post->ID ), admin_url( 'admin-post.php' ) );
+	}
+
+	/**
+	 * Admin post handler to display the preview
+	 *
+	 * Is this real life?
+	 */
+	public function is_this_real_life() {
+		define( 'WP_USE_THEMES', true );
+		define( 'IFRAME_REQUEST', true );
+		wp();
+		require ABSPATH . WPINC . '/template-loader.php';
 	}
 
 	/**

@@ -16,6 +16,21 @@ class Scrivener {
 		add_filter( 'admin_post_weiverp',    array( $this, 'is_this_real_life' ) );
 	}
 
+	public function get_editable_fields() {
+		$fields = array(
+			'post_title' => array(
+				'label' => 'Post Title',
+				'type' => 'text',
+			),
+			'post_excerpt' => array(
+				'label' => 'Post Title',
+				'type' => 'text',
+			),
+		);
+
+		return apply_filters( 'scrivener_editable_fields', $fields );
+	}
+
 	/**
 	 * Enqueue admin scripts for plugin.
 	 *
@@ -33,6 +48,7 @@ class Scrivener {
 		wp_enqueue_script( 'scrivener', $base . '/js/app.js', array( 'backbone' ), '0.1', true );
 
 		$scrivener_data = array(
+			'sections' => $this->get_editable_fields(),
 			'admin_url' => admin_url(),
 		);
 

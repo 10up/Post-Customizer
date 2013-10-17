@@ -50,7 +50,7 @@ class Scrivener {
 	 * @since 0.1.0
 	 * @return Scrivener
 	 */
-	public function init() {
+	public static function init() {
 		if ( ! isset( self::$_instance ) ) {
 			self::$_instance = new Scrivener;
 		}

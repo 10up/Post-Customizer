@@ -5,6 +5,8 @@
 
 	Scrivener.Views.Modal = Backbone.View.extend( {
 
+		className : 'scrivener-modal',
+
 		initialize : function() {
 			//
 		},

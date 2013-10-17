@@ -34,6 +34,12 @@ class Scrivener {
 		// include our dependencies
 		wp_enqueue_script( 'scrivener-models-core', $base . '/js/models/core.js', array( 'scrivener' ) );
 
+		$scrivener_data = array(
+			'admin_url' => admin_url(),
+		);
+
+		wp_localize_script( 'scrivener-models-core', 'scrivener_data', $scrivener_data );
+
 		// include bootstrap
 		wp_enqueue_script( 'scrivener-bootstrap', $base . '/js/main.js', array( 'scrivener' ) );
 	}

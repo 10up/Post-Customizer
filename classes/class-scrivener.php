@@ -12,6 +12,7 @@ class Scrivener {
 	private function __construct() {
 		add_filter( 'preview_post_link',     array( $this, 'filter_preview_post_link' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'action_admin_enqueue_scripts' ) );
+		add_action( 'init',                  array( $this, 'trick_wp' ), 9 );
 		add_filter( 'admin_post_weiverp',    array( $this, 'is_this_real_life' ) );
 	}
 
@@ -57,6 +58,19 @@ class Scrivener {
 	public function filter_preview_post_link( $link = '' ) {
 		$link = add_query_arg( array( 'action' => 'weiverp', 'p' => get_the_ID() ), admin_url( 'admin-post.php' ) );
 		return $link;
+	}
+
+	/**
+	 * Trick WP into thinking this is a preview
+	 *
+	 * LOL
+	 */
+	public function trick_wp() {
+		if ( is_admin() && ! empty( $_GET['action'] ) && $_GET['action'] = 'weiverp' ) {
+			$_GET['preview']       = 'true';
+			$_GET['preview_id']    = $_GET['p'];
+			$_GET['preview_nonce'] = wp_create_nonce( 'post_preview_' . $_GET['p'] );
+		}
 	}
 
 	/**

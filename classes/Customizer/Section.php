@@ -4,8 +4,7 @@ namespace Customizer;
 
 class Section {
 
-	public $id;
-
+	protected $uuid = '';
 	protected $controls = array();
 
 	/**
@@ -35,6 +34,26 @@ class Section {
 	 */
 	public function remove_control( $control_id ) {
 
+	}
+
+	/**
+	 * Sets the UUID for this section
+	 *
+	 * @param string $uuid
+	 */
+	public function set_uuid( $uuid ) {
+		// todo: make sure this is a string before setting it
+		$this->uuid = $uuid;
+	}
+
+	/**
+	 * Gets the UUID for this section
+	 *
+	 * @param $uuid
+	 * @return string
+	 */
+	public function get_uuid( $uuid ) {
+		return $this->uuid;
 	}
 
 }

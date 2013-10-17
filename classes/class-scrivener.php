@@ -14,11 +14,12 @@ class Scrivener {
 	private function __construct() {
 		add_filter( 'preview_post_link', array( $this, 'filter_preview_post_link' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'action_admin_enqueue_scripts' ) );
+		add_filter( 'admin_post_weiverp', array( $this, 'is_this_real_life' ) );
 	}
 
 	/**
 	 * Enqueue admin scripts for plugin
-	 * 
+	 *
 	 * @param string $hook
 	 * @since 0.1.0
 	 * @uses wp_enqueue_script
@@ -42,6 +43,18 @@ class Scrivener {
 	public function filter_preview_post_link( $link ) {
 		global $post;
 		return admin_url( 'admin-post.php?action=weiverp&p=' . $post->ID );
+	}
+
+	/**
+	 * Admin post handler to display the preview
+	 *
+	 * Is this real life?
+	 */
+	public function is_this_real_life() {
+		define( 'WP_USE_THEMES', true );
+		define( 'IFRAME_REQUEST', true );
+		wp();
+		require ABSPATH . WPINC . '/template-loader.php';
 	}
 
 	/**

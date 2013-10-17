@@ -31,15 +31,15 @@ class Scrivener {
 		// include the base component
 		wp_enqueue_script( 'scrivener', $base . '/js/app.js', array( 'backbone' ), '0.1', true );
 
-		// include our dependencies
-		wp_enqueue_script( 'scrivener-models-core', $base . '/js/models/core.js', array( 'scrivener' ) );
-		wp_enqueue_script( 'scrivener-models-view', $base . '/js/views/core.js', array( 'scrivener' ) );
-
 		$scrivener_data = array(
 			'admin_url' => admin_url(),
 		);
 
-		wp_localize_script( 'scrivener-models-core', 'scrivener_data', $scrivener_data );
+		wp_localize_script( 'scrivener', 'Scrivener_Data', $scrivener_data );
+
+		// include our dependencies
+		wp_enqueue_script( 'scrivener-models-core', $base . '/js/models/core.js', array( 'scrivener' ) );
+		wp_enqueue_script( 'scrivener-models-view', $base . '/js/views/core.js', array( 'scrivener' ) );
 
 		// include bootstrap
 		wp_enqueue_script( 'scrivener-bootstrap', $base . '/js/main.js', array( 'scrivener' ) );

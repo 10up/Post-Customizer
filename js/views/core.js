@@ -9,7 +9,15 @@
 			return document.querySelector( '#preview-action a' );
 		},
 
+		events : {
+			'click' : 'onPreviewButtonClick'
+		},
+
 		initialize : function() {
+			//
+		},
+
+		onPreviewButtonClick : function( event ) {
 			//
 		}
 

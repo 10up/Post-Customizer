@@ -10,4 +10,3 @@ License: GPLv2 or later
  */
 
 require_once( __DIR__ . '/classes/class-scrivener.php' );
-require_once( __DIR__ . '/js-example.php' );

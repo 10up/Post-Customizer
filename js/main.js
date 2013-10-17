@@ -5,7 +5,10 @@
 
 	$( document ).ready( function() {
 
-		//
+		var coreModel = new Scrivener.Models.Core();
+		var coreView = new Scrivener.Views.Core( {
+			model : coreModel
+		} );
 
 	} );
 

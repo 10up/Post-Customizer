@@ -12,4 +12,4 @@
 
 	} );
 
-} )( window, Backbone, jQuery, _, Scrivener);
+} )( window, Backbone, jQuery, _, Scrivener );

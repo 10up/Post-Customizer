@@ -15,6 +15,17 @@
 		},
 
 		/**
+		 * Builds the preview URL for our frame preview
+		 *
+		 * @returns {string}
+		 */
+		buildPreviewURL : function() {
+			var post_id = document.getElementById( 'post_ID' ).value;
+			var data = this.get( 'localizedData' );
+			return data.admin_url + 'admin-post.php?action=weivrep&p=' + post_id;
+		},
+
+		/**
 		 * Removes the old modal and creates a new one
 		 */
 		openCustomizer : function() {
@@ -29,6 +40,9 @@
 			var sidebar = new Scrivener.Views.Sidebar( {
 				model : this
 			} );
+
+			modal.$el.append( framePreview.$el );
+			modal.$el.append( sidebar.$el );
 
 			currentModalView = {
 				modal : modal,

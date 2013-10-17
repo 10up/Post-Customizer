@@ -5,6 +5,8 @@
 
 	Scrivener.Views.Sidebar = Backbone.View.extend( {
 
+		className : 'scrivener-customizer-sidebar',
+
 		initialize : function() {
 			//
 		}

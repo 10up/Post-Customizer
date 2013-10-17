@@ -64,15 +64,15 @@ class Scrivener {
 		remove_action( 'wp_head', '_admin_bar_bump_cb' );
 
 		// Wrap the title and content in Scrivener ID's
-		add_filter( 'the_title',   array( $this, 'the_title'   ) );
-		add_filter( 'the_content', array( $this, 'the_content' ) );
+		add_filter( 'the_title',   array( $this, 'filter_the_title'   ) );
+		add_filter( 'the_content', array( $this, 'filter_the_content' ) );
 
 		// Pul in the template-loader to output theme-side post-preview
 		require( ABSPATH . WPINC . '/template-loader.php' );
 
 		// Remove filters (maybe not necessary)
-		remove_filter( 'the_title',   array( $this, 'the_title'   ) );
-		remove_filter( 'the_content', array( $this, 'the_content' ) );
+		remove_filter( 'the_title',   array( $this, 'filter_the_title'   ) );
+		remove_filter( 'the_content', array( $this, 'filter_the_content' ) );
 	}
 
 	/**
@@ -82,7 +82,7 @@ class Scrivener {
 	 *
 	 * @param string $title
 	 */
-	public function the_title( $title = '' ) {
+	public static function filter_the_title( $title = '' ) {
 		return '<div id="scrivener-title">' . $title . '</div>';
 	}
 
@@ -93,7 +93,7 @@ class Scrivener {
 	 *
 	 * @param string $title
 	 */
-	public static function the_content( $content = '' ) {
+	public static function filter_the_content( $content = '' ) {
 		return '<div id="scrivener-content">' . $content . '</div>';
 	}
 

@@ -2,7 +2,7 @@
 
 namespace Customizer;
 
-class Core {
+abstract class Core {
 
 	//
 

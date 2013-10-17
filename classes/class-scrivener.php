@@ -66,7 +66,7 @@ class Scrivener {
 	 * LOL
 	 */
 	public function trick_wp() {
-		if ( is_admin() && ! empty( $_GET['action'] ) && $_GET['action'] = 'weiverp' ) {
+		if ( is_admin() && ! empty( $_GET['action'] ) && $_GET['action'] === 'weiverp' ) {
 			$_GET['preview']       = 'true';
 			$_GET['preview_id']    = $_GET['p'];
 			$_GET['preview_nonce'] = wp_create_nonce( 'post_preview_' . $_GET['p'] );

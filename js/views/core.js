@@ -21,7 +21,7 @@
 			event.preventDefault();
 			event.stopImmediatePropagation();
 
-			this.model.renderNewModal();
+			this.model.showCustomizer();
 		}
 
 	} );

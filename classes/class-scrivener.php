@@ -56,10 +56,11 @@ class Scrivener {
 
 		// include our dependencies
 		wp_enqueue_script( 'scrivener-models-core', $base . '/js/models/core.js', array( 'scrivener' ) );
-		wp_enqueue_script( 'scrivener-views-core', $base . '/js/views/core.js', array( 'scrivener' ) );
-		wp_enqueue_script( 'scrivener-views-modal', $base . '/js/views/modal.js', array( 'scrivener' ) );
-		wp_enqueue_script( 'scrivener-views-sidebar', $base . '/js/views/sidebar.js', array( 'scrivener' ) );
-		wp_enqueue_script( 'scrivener-views-frame-preview', $base . '/js/views/frame-preview.js', array( 'scrivener' ) );
+		wp_enqueue_script( 'scrivener-models-customizer', $base . '/js/models/customizer.js', array( 'scrivener' ) );
+		wp_enqueue_script( 'scrivener-views-core', $base . '/js/views/core.js', array( 'scrivener-models-core' ) );
+		wp_enqueue_script( 'scrivener-views-modal', $base . '/js/views/modal.js', array( 'scrivener-models-customizer' ) );
+		wp_enqueue_script( 'scrivener-views-sidebar', $base . '/js/views/sidebar.js', array( 'scrivener-models-customizer' ) );
+		wp_enqueue_script( 'scrivener-views-frame-preview', $base . '/js/views/frame-preview.js', array( 'scrivener-models-customizer' ) );
 
 		// include bootstrap
 		wp_enqueue_script( 'scrivener-bootstrap', $base . '/js/main.js', array( 'scrivener' ) );

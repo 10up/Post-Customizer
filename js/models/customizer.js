@@ -1,0 +1,57 @@
+( function( window, Backbone, $, _, Scrivener, undefined ) {
+
+	"use strict";
+	var document = window.document;
+	var currentModalView = {
+		modal : null,
+		framePreview : null,
+		sidebar : null
+	};
+
+	Scrivener.Models.Customizer = Backbone.Model.extend( {
+
+		initialize : function( attributes ) {
+			this.set( 'localizedData', attributes.localizedData );
+		},
+
+		/**
+		 * Removes the old modal and creates a new one
+		 */
+		openCustomizer : function() {
+			this.closeCustomizer();
+
+			var modal = new Scrivener.Views.Modal( {
+				model : this
+			} );
+			var framePreview = new Scrivener.Views.FramePreview( {
+				model : this
+			} );
+			var sidebar = new Scrivener.Views.Sidebar( {
+				model : this
+			} );
+
+			currentModalView = {
+				modal : modal,
+				framePreview : framePreview,
+				sidebar : sidebar
+			};
+		},
+
+		/**
+		 * Removes the existing modal if it exists
+		 */
+		closeCustomizer : function() {
+			if( currentModalView.modal !== null ) {
+				currentModalView.modal.close();
+			}
+			if( currentModalView.framePreview !== null ) {
+				currentModalView.framePreview.close();
+			}
+			if( currentModalView.sidebar !== null ) {
+				currentModalView.sidebar.close();
+			}
+		}
+
+	} );
+
+} )( window, Backbone, jQuery, _, Scrivener );

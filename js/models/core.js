@@ -2,11 +2,7 @@
 
 	"use strict";
 	var document = window.document;
-	var currentModalView = {
-		modal : null,
-		framePreview : null,
-		sidebar : null
-	};
+	var customizerModel = null;
 
 	Scrivener.Models.Core = Backbone.Model.extend( {
 
@@ -25,42 +21,15 @@
 			return data.admin_url + 'admin-post.php?action=weivrep&p=' + post_id;
 		},
 
-		/**
-		 * Removes the old modal and creates a new one
-		 */
-		renderNewModal : function() {
-			this.removeModal();
-
-			var modal = new Scrivener.Views.Modal( {
-				model : this
-			} );
-			var framePreview = new Scrivener.Views.FramePreview( {
-				model : this
-			} );
-			var sidebar = new Scrivener.Views.Sidebar( {
-				model : this
-			} );
-
-			currentModalView = {
-				modal : modal,
-				framePreview : framePreview,
-				sidebar : sidebar
-			};
-		},
-
-		/**
-		 * Removes the existing modal if it exists
-		 */
-		removeModal : function() {
-			if( currentModalView.modal !== null ) {
-				currentModalView..modal.close();
+		showCustomizer : function() {
+			if( customizerModel !== null ) {
+				customizerModel.closeCustomizer();
 			}
-			if( currentModalView.framePreview !== null ) {
-				currentModalView.framePreview.close();
-			}
-			if( currentModalView.sidebar !== null ) {
-				currentModalView.sidebar.close();
-			}
+
+			customizerModel = new Scrivener.Models.Customizer( {
+				localizedData : this.get( 'localizedData' )
+			} );
+			customizerModel.openCustomizer();
 		}
 
 	} );

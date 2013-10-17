@@ -13,7 +13,7 @@
 
 		render : function() {
 			var html = '<iframe src="' + this.model.buildPreviewURL() + '"></iframe>';
-			this.$el.html( html ).appendTo( document.body );
+			this.$el.html( html );
 		}
 
 	} );

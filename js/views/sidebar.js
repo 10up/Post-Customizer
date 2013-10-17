@@ -8,7 +8,11 @@
 		className : 'scrivener-customizer-sidebar',
 
 		initialize : function() {
-			//
+			this.render();
+		},
+
+		render : function() {
+			this.$el.html( '<div class="content">sidebar</div>' );
 		}
 
 	} );

@@ -5,5 +5,3 @@ A WordPress plugin to enhance the post editor preview, mainly through proof of c
 ## Links
 
 [Parade](https://github.com/parade/customizer-demo) - An example of customizer code hacks from @darinkotter.
-
-A WordPress plugin to enhance the post editor preview, mainly through proof of concept.

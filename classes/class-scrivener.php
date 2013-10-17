@@ -62,7 +62,39 @@ class Scrivener {
 		define( 'IFRAME_REQUEST', true );
 		wp();
 		remove_action( 'wp_head', '_admin_bar_bump_cb' );
-		require ABSPATH . WPINC . '/template-loader.php';
+
+		// Wrap the title and content in Scrivener ID's
+		add_filter( 'the_title',   array( $this, 'the_title'   ) );
+		add_filter( 'the_content', array( $this, 'the_content' ) );
+
+		// Pul in the template-loader to output theme-side post-preview
+		require( ABSPATH . WPINC . '/template-loader.php' );
+
+		// Remove filters (maybe not necessary)
+		remove_filter( 'the_title',   array( $this, 'the_title'   ) );
+		remove_filter( 'the_content', array( $this, 'the_content' ) );
+	}
+
+	/**
+	 * Wrap the_title in a Scrivener div
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $title
+	 */
+	public function the_title( $title = '' ) {
+		return '<div id="scrivener-title">' . $title . '</div>';
+	}
+
+	/**
+	 * Wrap the_content in a Scrivener div
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $title
+	 */
+	public static function the_content( $content = '' ) {
+		return '<div id="scrivener-content">' . $content . '</div>';
 	}
 
 	/**

@@ -18,6 +18,9 @@
 		},
 
 		onPreviewButtonClick : function( event ) {
+			event.preventDefault();
+			event.stopImmediatePropagation();
+
 			this.model.renderNewModal();
 		}
 

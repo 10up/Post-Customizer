@@ -33,7 +33,8 @@ class Scrivener {
 
 		// include our dependencies
 		wp_enqueue_script( 'scrivener-models-core', $base . '/js/models/core.js', array( 'scrivener' ) );
-		wp_enqueue_script( 'scrivener-models-view', $base . '/js/views/core.js', array( 'scrivener' ) );
+		wp_enqueue_script( 'scrivener-views-core', $base . '/js/views/core.js', array( 'scrivener' ) );
+		wp_enqueue_script( 'scrivener-views-modal', $base . '/js/views/modal.js', array( 'scrivener' ) );
 
 		// include bootstrap
 		wp_enqueue_script( 'scrivener-bootstrap', $base . '/js/main.js', array( 'scrivener' ) );

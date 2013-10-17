@@ -4,7 +4,7 @@ namespace Customizer;
 
 abstract class Core {
 
-	private $sections = array();
+	protected $sections = array();
 
 	/**
 	 * Add a section

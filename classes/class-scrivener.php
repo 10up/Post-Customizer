@@ -25,7 +25,7 @@ class Scrivener {
 	 */
 	public function filter_preview_post_link( $link ) {
 		global $post;
-		return admin_url( 'admin-post.php?weiverp=1&p=' . $post->ID );
+		return admin_url( 'admin-post.php?action=weiverp&p=' . $post->ID );
 	}
 
 	/**

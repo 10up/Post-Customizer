@@ -18,7 +18,7 @@
 		},
 
 		onPreviewButtonClick : function( event ) {
-			//
+			this.model.renderNewModal();
 		}
 
 	} );

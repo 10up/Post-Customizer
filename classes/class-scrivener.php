@@ -11,6 +11,21 @@ class Scrivener {
 	 */
 	private function __construct() {
 		add_filter( 'preview_post_link', array( $this, 'filter_preview_post_link' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'action_admin_enqueue_scripts' ) );
+	}
+
+	/**
+	 * Enqueue admin scripts for plugin.
+	 * 
+	 * @param string $hook The hook name.
+	 *
+	 * @since 0.1.0
+	 */
+	public function action_admin_enqueue_scripts( $hook ) {
+		if ( 'post.php' != $hook && 'post-new.php' != $hook )
+			return;
+
+		//wp_enqueue_script();
 	}
 
 	/**

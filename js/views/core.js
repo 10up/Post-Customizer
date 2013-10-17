@@ -3,9 +3,13 @@
 	"use strict";
 	var document = window.document;
 
-	Scrivener.Models.Core = Backbone.Model.extend( {
+	Scrivener.Views.Core = Backbone.View.extend( {
 
-		buildPreviewURL : function() {
+		el : function() {
+			return document.querySelector( '#preview-action a' );
+		},
+
+		initialize : function() {
 			//
 		}
 

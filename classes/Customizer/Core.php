@@ -4,13 +4,34 @@ namespace Customizer;
 
 abstract class Core {
 
-	private $sections;
+	private $sections = array();
 
+	/**
+	 * Add a section
+	 *
+	 * @param Section $section
+	 */
 	public function add_section( Section $section ) {
 
 	}
 
-	public function remove_section( Section $section ) {
+	/**
+	 * Get a section by ID
+	 *
+	 * @param string $section_id
+	 *
+	 * @return Section
+	 */
+	public function get_section( $section_id ) {
+
+	}
+
+	/**
+	 * Remove a section by ID
+	 *
+	 * @param string $section_id
+	 */
+	public function remove_section( $section_id ) {
 
 	}
 

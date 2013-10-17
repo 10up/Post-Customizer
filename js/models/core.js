@@ -1,4 +1,4 @@
-( function( window, Backbone, $, _, Scrivener, Scrivener_Data, undefined ) {
+( function( window, Backbone, $, _, Scrivener, undefined ) {
 
 	"use strict";
 	var document = window.document;
@@ -6,9 +6,14 @@
 
 	Scrivener.Models.Core = Backbone.Model.extend( {
 
+		initialize : function( attributes ) {
+			this.set( 'localizedData', attributes.localizedData );
+		},
+
 		buildPreviewURL : function() {
 			var post_id = document.getElementById( 'post_ID' ).value;
-			return Scrivener_Data.admin_url + 'admin-post.php?action=weivrep&p=' + post_id;
+			var data = this.get( 'localizedData' );
+			return data.admin_url + 'admin-post.php?action=weivrep&p=' + post_id;
 		},
 
 		renderNewModal : function() {
@@ -23,4 +28,4 @@
 
 	} );
 
-} )( window, Backbone, jQuery, _, Scrivener, Scrivener_Data );
+} )( window, Backbone, jQuery, _, Scrivener );

@@ -8,11 +8,15 @@
 		className : 'scrivener-modal',
 
 		initialize : function() {
-			//
+			this.render();
 		},
 
 		render : function() {
-			//
+			this.$el.appendTo( document.body );
+		},
+
+		close : function() {
+			this.$el.remove();
 		}
 
 	} );

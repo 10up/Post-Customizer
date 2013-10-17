@@ -61,6 +61,9 @@ class Scrivener {
 
 		// include bootstrap
 		wp_enqueue_script( 'scrivener-bootstrap', $base . '/js/main.js', array( 'scrivener' ) );
+
+		// include CSS
+		wp_enqueue_style( 'bugpresser', $base . '/css/scrivener.css', array() );
 	}
 
 	/**

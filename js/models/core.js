@@ -2,7 +2,11 @@
 
 	"use strict";
 	var document = window.document;
-	var currentModalView = null;
+	var currentModalView = {
+		modal : null,
+		framePreview : null,
+		sidebar : null
+	};
 
 	Scrivener.Models.Core = Backbone.Model.extend( {
 
@@ -17,13 +21,31 @@
 		},
 
 		renderNewModal : function() {
-			if( currentModalView !== null ) {
-				currentModalView.close();
+			if( currentModalView.modal !== null ) {
+				currentModalView..modal.close();
+			}
+			if( currentModalView.framePreview !== null ) {
+				currentModalView.framePreview.close();
+			}
+			if( currentModalView.sidebar !== null ) {
+				currentModalView.sidebar.close();
 			}
 
-			currentModalView = new Scrivener.Views.Modal( {
+			var modal = new Scrivener.Views.Modal( {
 				model : this
 			} );
+			var framePreview = new Scrivener.Views.FramePreview( {
+				model : this
+			} );
+			var sidebar = new Scrivener.Views.Sidebar( {
+				model : this
+			} );
+
+			currentModalView = {
+				modal : modal,
+				framePreview : framePreview,
+				sidebar : sidebar
+			};
 		}
 
 	} );

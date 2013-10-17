@@ -1,3 +1,6 @@
+.body-absolute {
+	position: absolute;
+}
 .scrivener-modal {
 	position: fixed;
 	height: 100%;

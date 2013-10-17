@@ -2,6 +2,7 @@
 
 	"use strict";
 	var document = window.document;
+	var $body = $( document.body );
 
 	Scrivener.Views.Modal = Backbone.View.extend( {
 
@@ -12,11 +13,13 @@
 		},
 
 		render : function() {
+			$body.addClass( 'body-absolute' );
 			this.$el.appendTo( document.body );
 		},
 
 		close : function() {
 			this.$el.remove();
+			$body.removeClass( 'body-absolute' );
 		}
 
 	} );

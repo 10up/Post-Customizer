@@ -18,9 +18,9 @@ class Scrivener {
 	/**
 	 * Enqueue admin scripts for plugin.
 	 *
-	 * @param string $hook The hook name.
-	 *
 	 * @since 0.1.0
+	 *
+	 * @param string $hook The hook name.
 	 */
 	public function action_admin_enqueue_scripts( $hook ) {
 		if ( 'post.php' != $hook && 'post-new.php' != $hook )
@@ -36,6 +36,12 @@ class Scrivener {
 		wp_enqueue_script( 'scrivener-views-core', $base . '/js/views/core.js', array( 'scrivener' ) );
 		wp_enqueue_script( 'scrivener-views-modal', $base . '/js/views/modal.js', array( 'scrivener' ) );
 
+		$scrivener_data = array(
+			'admin_url' => admin_url(),
+		);
+
+		wp_localize_script( 'scrivener-models-core', 'scrivener_data', $scrivener_data );
+
 		// include bootstrap
 		wp_enqueue_script( 'scrivener-bootstrap', $base . '/js/main.js', array( 'scrivener' ) );
 	}
@@ -43,21 +49,22 @@ class Scrivener {
 	/**
 	 * Filter preview post link.
 	 *
-	 * @param string $link Preview link.
-	 *
 	 * @since 0.1.0
 	 *
+	 * @param string $link Preview link.
 	 * @return string The filtered preview link.
 	 */
-	public function filter_preview_post_link( $link ) {
-		global $post;
-		return add_query_arg( array( 'action' => 'weiverp', 'p' => $post->ID ), admin_url( 'admin-post.php' ) );
+	public function filter_preview_post_link( $link = '' ) {
+		$link = add_query_arg( array( 'action' => 'weiverp', 'p' => get_the_ID() ), admin_url( 'admin-post.php' ) );
+		return $link;
 	}
 
 	/**
 	 * Admin post handler to display the preview
 	 *
 	 * Is this real life?
+	 *
+	 * @since 0.1.0
 	 */
 	public function is_this_real_life() {
 		define( 'WP_USE_THEMES', true );
@@ -83,6 +90,7 @@ class Scrivener {
 	 * @since 0.1.0
 	 *
 	 * @param string $title
+	 * @return string $title wrapped in a div
 	 */
 	public static function filter_the_title( $title = '' ) {
 		return '<div id="scrivener-title">' . $title . '</div>';
@@ -93,7 +101,8 @@ class Scrivener {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $title
+	 * @param string $content
+	 * @return string $content wrapped in a div
 	 */
 	public static function filter_the_content( $content = '' ) {
 		return '<div id="scrivener-content">' . $content . '</div>';

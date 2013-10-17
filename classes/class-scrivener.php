@@ -17,7 +17,7 @@ class Scrivener {
 
 	/**
 	 * Enqueue admin scripts for plugin.
-	 * 
+	 *
 	 * @param string $hook The hook name.
 	 *
 	 * @since 0.1.0
@@ -61,6 +61,7 @@ class Scrivener {
 		define( 'WP_USE_THEMES', true );
 		define( 'IFRAME_REQUEST', true );
 		wp();
+		remove_action( 'wp_head', '_admin_bar_bump_cb' );
 		require ABSPATH . WPINC . '/template-loader.php';
 	}
 

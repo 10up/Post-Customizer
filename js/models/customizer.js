@@ -23,7 +23,7 @@
 		buildPreviewURL : function() {
 			var post_id = document.getElementById( 'post_ID' ).value;
 			var data = this.get( 'localizedData' );
-			return data.admin_url + 'admin-post.php?action=weivrep&p=' + post_id;
+			return data.admin_url + 'admin-post.php?action=weiverp&p=' + post_id;
 		},
 
 		/**

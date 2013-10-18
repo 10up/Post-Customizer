@@ -7,12 +7,12 @@
 
 		className : 'scrivener-customizer-sidebar',
 
-		initialize : function() {
-			this.render();
+		initialize : function( attributes ) {
+			this.render( attributes.ajaxData );
 		},
 
-		render : function() {
-			this.$el.html( '<div class="content">sidebar</div>' );
+		render : function( ajaxData ) {
+			this.$el.html( '<div class="content">' + ajaxData.sidebarHTML + '</div>' );
 		}
 
 	} );

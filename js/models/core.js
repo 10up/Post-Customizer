@@ -10,7 +10,7 @@
 			this.set( 'localizedData', attributes.localizedData );
 		},
 
-		showCustomizer : function() {
+		showCustomizer : function( data ) {
 			if( customizerModel !== null ) {
 				customizerModel.closeCustomizer();
 			}

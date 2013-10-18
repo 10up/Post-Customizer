@@ -14,6 +14,26 @@ class Scrivener {
 		add_action( 'admin_enqueue_scripts', array( $this, 'action_admin_enqueue_scripts' ) );
 		add_action( 'init',                  array( $this, 'trick_wp' ), 9 );
 		add_filter( 'admin_post_weiverp',    array( $this, 'is_this_real_life' ) );
+		add_action( 'wp_ajax_scrivener',     array( $this, 'process_ajax_request' ) );
+	}
+
+	public function process_ajax_request() {
+		check_ajax_referer( 'scrivener' );
+
+		$data = array(
+			'sidebarHTML' => $this->_render_sidebar_data(),
+		);
+
+		wp_send_json( $data );
+	}
+
+	protected function _render_sidebar_data() {
+		ob_start();
+		?>
+		<h1>Sidebar</h1>
+		<?php
+		$html = ob_get_clean();
+		return str_replace( array( "\n", "\t", "\r" ), '', $html );
 	}
 
 	public function get_editable_fields() {
@@ -50,6 +70,8 @@ class Scrivener {
 		$scrivener_data = array(
 			'sections' => $this->get_editable_fields(),
 			'admin_url' => admin_url(),
+			'ajaxURL' => admin_url( 'admin-ajax.php' ),
+			'ajaxNonce' => wp_create_nonce( 'scrivener' ),
 		);
 
 		wp_localize_script( 'scrivener', 'Scrivener_Data', $scrivener_data );

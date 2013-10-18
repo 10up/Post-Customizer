@@ -7,6 +7,7 @@
 		framePreview : null,
 		sidebar : null
 	};
+	var XHR = null;
 
 	Scrivener.Models.Customizer = Backbone.Model.extend( {
 
@@ -29,16 +30,37 @@
 		 * Removes the old modal and creates a new one
 		 */
 		openCustomizer : function() {
+			if( XHR !== null ) {
+				XHR.abort();
+			}
+			var data = this.get( 'localizedData' );
+
+			XHR = $.ajax( {
+				url : data.ajaxURL,
+				type : 'POST',
+				dataType : 'JSON',
+				data : {
+					action : 'scrivener',
+					_ajax_nonce : data.ajaxNonce
+				},
+				success : $.proxy( this.renderCustomizer, this )
+			} );
+		},
+
+		renderCustomizer : function( ajaxData ) {
 			this.closeCustomizer();
 
 			var modal = new Scrivener.Views.Modal( {
-				model : this
+				model : this,
+				ajaxData : ajaxData
 			} );
 			var framePreview = new Scrivener.Views.FramePreview( {
-				model : this
+				model : this,
+				ajaxData : ajaxData
 			} );
 			var sidebar = new Scrivener.Views.Sidebar( {
-				model : this
+				model : this,
+				ajaxData : ajaxData
 			} );
 
 			modal.$el.append( framePreview.$el );

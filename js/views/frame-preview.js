@@ -14,6 +14,10 @@
 		render : function() {
 			var html = '<iframe src="' + this.model.buildPreviewURL() + '"></iframe>';
 			this.$el.html( html );
+		},
+
+		close : function() {
+			this.remove();
 		}
 
 	} );

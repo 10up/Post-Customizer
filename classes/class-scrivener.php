@@ -31,6 +31,7 @@ class Scrivener {
 		ob_start();
 		?>
 		<h1>Sidebar</h1>
+		<a href="javascript:void(0);" class="button close">Close Customizer</a>
 		<?php
 		$html = ob_get_clean();
 		return str_replace( array( "\n", "\t", "\r" ), '', $html );

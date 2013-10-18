@@ -7,12 +7,24 @@
 
 		className : 'scrivener-customizer-sidebar',
 
+		events : {
+			'click .button.close' : 'onCloseCustomizerClick'
+		},
+
 		initialize : function( attributes ) {
 			this.render( attributes.ajaxData );
 		},
 
 		render : function( ajaxData ) {
 			this.$el.html( '<div class="content">' + ajaxData.sidebarHTML + '</div>' );
+		},
+
+		onCloseCustomizerClick : function( event ) {
+			this.model.closeCustomizer();
+		},
+
+		close : function() {
+			this.remove();
 		}
 
 	} );

@@ -18,7 +18,7 @@
 		},
 
 		close : function() {
-			this.$el.remove();
+			this.remove();
 			$body.removeClass( 'body-absolute' );
 		}
 

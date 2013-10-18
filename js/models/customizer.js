@@ -79,12 +79,15 @@
 		closeCustomizer : function() {
 			if( currentModalView.modal !== null ) {
 				currentModalView.modal.close();
+				currentModalView.modal = null;
 			}
 			if( currentModalView.framePreview !== null ) {
 				currentModalView.framePreview.close();
+				currentModalView.framePreview = null;
 			}
 			if( currentModalView.sidebar !== null ) {
 				currentModalView.sidebar.close();
+				currentModalView.sidebar = null;
 			}
 		}
 

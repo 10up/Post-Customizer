@@ -1,14 +1,6 @@
 .body-absolute {
 	position: absolute;
 }
-.scrivener-modal {
-	position: fixed;
-	height: 100%;
-	width: 100%;
-	top: 0;
-	left: 0;
-	z-index: 99;
-}
 .scrivener-modal .scrivener-customizer-frame-preview {
 	position: fixed;
 	height: 100%;

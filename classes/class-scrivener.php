@@ -20,8 +20,11 @@ class Scrivener {
 	public function process_ajax_request() {
 		check_ajax_referer( 'scrivener' );
 
+		if ( empty( $_POST['post_id'] ) )
+			return;
+
 		$data = array(
-			'sidebarHTML' => $this->_render_sidebar_data(),
+			'sidebarHTML' => $this->_render_sidebar_data( $_POST['post_id'] ),
 		);
 
 		wp_send_json( $data );

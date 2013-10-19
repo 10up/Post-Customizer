@@ -6,7 +6,7 @@
 
 	Scrivener.Views.Modal = Backbone.View.extend( {
 
-		className : 'scrivener-modal',
+		className : 'scrivener-modal wp-full-overlay expanded',
 
 		initialize : function() {
 			this.render();

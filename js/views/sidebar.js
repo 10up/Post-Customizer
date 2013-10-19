@@ -5,7 +5,7 @@
 
 	Scrivener.Views.Sidebar = Backbone.View.extend( {
 
-		className : 'scrivener-customizer-sidebar',
+		className : 'scrivener-customizer-sidebar wp-full-overlay-sidebar-content accordion-container',
 
 		events : {
 			'click .button.close' : 'onCloseCustomizerClick'

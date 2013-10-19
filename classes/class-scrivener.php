@@ -68,8 +68,8 @@ class Scrivener {
 
 		<form id="customize-controls" class="wrap wp-full-overlay-sidebar">
 			<div id="customize-header-actions" class="wp-full-overlay-header">
-				<a href="javascript:void(0);" class="button"><?php _e( 'Update', 'scrivener' ); ?></a>
-				<a href="javascript:void(0);" class="button close"><?php _e( 'Close Customizer', 'scrivener' ); ?></a>
+				<a href="javascript:void(0);" class="button button-primary save"><?php _e( 'Update', 'scrivener' ); ?></a>
+				<a href="javascript:void(0);" class="back button close"><?php _e( 'Close', 'scrivener' ); ?></a>
 			</div>
 
 			<div class="wp-full-overlay-sidebar-content accordion-container" tabindex="-1">
@@ -82,7 +82,7 @@ class Scrivener {
 					<?php echo _wp_post_thumbnail_html( get_post_thumbnail_id(), get_the_ID() ); ?>
 				</div>
 			</div>
-		</div>
+		</form>
 
 		<?php
 

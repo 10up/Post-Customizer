@@ -232,7 +232,7 @@ class Scrivener {
 	 * @return string $title wrapped in a div
 	 */
 	public static function filter_the_title( $title = '' ) {
-		return '<div id="scrivener-title">' . $title . '</div>';
+		return '<div class="scrivener-title">' . $title . '</div>';
 	}
 
 	/**
@@ -244,7 +244,7 @@ class Scrivener {
 	 * @return string $content wrapped in a div
 	 */
 	public static function filter_the_content( $content = '' ) {
-		return '<div id="scrivener-content">' . $content . '</div>';
+		return '<div class="scrivener-content">' . $content . '</div>';
 	}
 
 	/**

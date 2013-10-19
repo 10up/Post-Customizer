@@ -10,3 +10,27 @@
 	left: 0;
 	background: url('../images/loader.gif') no-repeat center center;
 }
+
+.media-modal {
+	z-index: 500002;
+}
+
+.media-modal-backdrop {
+	z-index: 500001;
+}
+
+.scrivener-modal .scrivener-customizer-sidebar img {
+	max-width: 100%;
+	height: auto;
+}
+
+.scrivener-modal .scrivener-customizer-sidebar #postimagediv {
+	background-color: transparent;
+	background-image: none;
+	border: 0;
+}
+
+.scrivener-modal .scrivener-customizer-sidebar #postimagediv .hndle,
+.scrivener-modal .scrivener-customizer-sidebar #postimagediv .handlediv {
+	display: none
+}

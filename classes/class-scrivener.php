@@ -101,10 +101,7 @@ class Scrivener {
 							<h3 class="accordion-section-title" tabindex="0"><?php _e( 'Post Thumbnail', 'scrivener' ); ?></h3>
 							<ul class="accordion-section-content">
 								<li id="customize-control-thumbnail" class="customize-control customize-control-thumbnail">
-									<label>
-										<span class="customize-control-excerpt"><?php _e( 'Post Thumbnail:', 'scrivener' ); ?></span>
-										<?php echo _wp_post_thumbnail_html( get_post_thumbnail_id(), get_the_ID() ); ?>
-									</label>
+									<div class="post-thumbnail-container"></div>
 								</li>
 							</ul>
 						</li>

@@ -8,6 +8,7 @@
 		sidebar : null
 	};
 	var XHR = null;
+	var styleSheetObject = null;
 
 	Scrivener.Models.Customizer = Backbone.Model.extend( {
 
@@ -34,6 +35,7 @@
 				XHR.abort();
 			}
 			var data = this.get( 'localizedData' );
+			this.addStyles( data.style_url );
 
 			XHR = $.ajax( {
 				url : data.ajaxURL,
@@ -47,6 +49,25 @@
 				},
 				success : $.proxy( this.renderCustomizer, this )
 			} );
+		},
+
+		addStyles : function( url ) {
+			var link = document.createElement( 'link' );
+			link.setAttribute( 'href', url );
+			link.setAttribute( 'rel', 'stylesheet' );
+			link.setAttribute( 'type', 'text/css' );
+
+			var head = document.getElementsByTagName( 'head' )[ 0 ];
+			head.appendChild( link );
+
+			styleSheetObject = link;
+		},
+
+		removeStyles : function() {
+			if( styleSheetObject !== null ) {
+				styleSheetObject.parentNode.removeChild( styleSheetObject );
+				styleSheetObject = null;
+			}
 		},
 
 		renderCustomizer : function( ajaxData ) {
@@ -79,6 +100,7 @@
 		 * Removes the existing modal if it exists
 		 */
 		closeCustomizer : function() {
+			this.removeStyles();
 			if( currentModalView.modal !== null ) {
 				currentModalView.modal.close();
 				currentModalView.modal = null;
@@ -94,6 +116,21 @@
 		},
 
 		autosavePost : function( html ) {
+			this.setEditorContent( html );
+			autosave();
+		},
+
+		getEditorContent : function() {
+			var tinymceContent = tinymce.get( 'content' );
+
+			if( tinymceContent !== undefined ) {
+				return tinymceContent.getContent();
+			} else {
+				return document.getElementById( 'content').value;
+			}
+		},
+
+		setEditorContent : function( html ) {
 			var tinymceContent = tinymce.get( 'content' );
 
 			if( tinymceContent !== undefined ) {
@@ -101,8 +138,6 @@
 			} else {
 				document.getElementById( 'content').value = html;
 			}
-
-			autosave();
 		}
 
 	} );

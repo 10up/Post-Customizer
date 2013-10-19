@@ -32,3 +32,9 @@
 	max-width: 100%;
 	height: auto;
 }
+.media-modal {
+	z-index: 500002;
+}
+.media-modal-backdrop {
+	z-index: 500001;
+}

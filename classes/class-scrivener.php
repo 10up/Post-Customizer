@@ -82,6 +82,13 @@ class Scrivener {
 					<?php echo _wp_post_thumbnail_html( get_post_thumbnail_id(), get_the_ID() ); ?>
 				</div>
 			</div>
+
+			<div id="customize-footer-actions" class="wp-full-overlay-footer">
+				<a href="#" class="collapse-sidebar button-secondary" title="<?php _e( 'Collapse Sidebar', 'scrivener' ); ?>">
+					<span class="collapse-sidebar-arrow"></span>
+					<span class="collapse-sidebar-label"><?php _e( 'Collapse', 'scrivener' ); ?></span>
+				</a>
+			</div>
 		</form>
 
 		<?php

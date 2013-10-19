@@ -46,6 +46,7 @@ class Scrivener {
 	 * @since 0.1.0
 	 *
 	 * @param int $post_id
+	 * @return string
 	 */
 	protected function _render_sidebar_data( $post_id ) {
 
@@ -141,7 +142,7 @@ class Scrivener {
 
 		// Customizer controls
 		wp_enqueue_script( 'customize-controls' );
-		wp_enqueue_script( 'accordion'          );
+		wp_enqueue_script( 'accordion' );
 
 		// include the base component
 		wp_enqueue_script( 'scrivener', $base . '/js/app.js', array( 'backbone' ), '0.1', true );
@@ -167,7 +168,7 @@ class Scrivener {
 		wp_enqueue_script( 'scrivener-bootstrap', $base . '/js/main.js', array( 'scrivener' ) );
 
 		// include CSS
-		wp_enqueue_style( 'scrivener', $base . '/css/scrivener.css', array() );
+		wp_enqueue_style( 'scrivener', $base . '/css/scrivener.css' );
 	}
 
 	/**
@@ -209,7 +210,11 @@ class Scrivener {
 		wp();
 		remove_action( 'wp_head', '_admin_bar_bump_cb' );
 
-		wp_enqueue_script( 'scrivener_frame', plugins_url( 'js/frame.js', __DIR__ ), array(), '0.1.0', true );
+		$base = plugins_url( '', dirname( __FILE__ ) );
+
+		wp_enqueue_script( 'ckeditor', $base . '/js/ckeditor/ckeditor.js', array(), '10.0.0', true );
+		wp_enqueue_script( 'scrivener-frame', $base . '/js/frame.js', array( 'ckeditor', 'jquery' ), '0.1.0', true );
+		wp_enqueue_style( 'scrivener', $base . '/css/scrivener-frame-preview.css' );
 
 		// Wrap the title and content in Scrivener ID's
 		add_filter( 'the_title',   array( $this, 'filter_the_title'   ) );
@@ -232,7 +237,7 @@ class Scrivener {
 	 * @return string $title wrapped in a div
 	 */
 	public static function filter_the_title( $title = '' ) {
-		return '<div class="scrivener-title">' . $title . '</div>';
+		return '<div class="scrivener-title scrivener-focused-element" contenteditable="true">' . $title . '</div>';
 	}
 
 	/**
@@ -244,7 +249,7 @@ class Scrivener {
 	 * @return string $content wrapped in a div
 	 */
 	public static function filter_the_content( $content = '' ) {
-		return '<div class="scrivener-content">' . $content . '</div>';
+		return '<div class="scrivener-content scrivener-focused-element" contenteditable="true">' . $content . '</div>';
 	}
 
 	/**

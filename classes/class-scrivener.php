@@ -51,7 +51,7 @@ class Scrivener {
 
 		// Look for the post
 		$_post = get_post( $post_id );
-		
+
 		// Bail if no post
 		if ( empty( $_post ) )
 			return;
@@ -172,6 +172,8 @@ class Scrivener {
 		define( 'IFRAME_REQUEST', true );
 		wp();
 		remove_action( 'wp_head', '_admin_bar_bump_cb' );
+
+		wp_enqueue_script( 'scrivener_frame', plugins_url( 'js/frame.js', __DIR__ ), array(), '0.1.0', true );
 
 		// Wrap the title and content in Scrivener ID's
 		add_filter( 'the_title',   array( $this, 'filter_the_title'   ) );

@@ -112,6 +112,7 @@ class Scrivener {
 		wp_enqueue_script( 'scrivener', $base . '/js/app.js', array( 'backbone' ), '0.1', true );
 
 		$scrivener_data = array(
+			'style_url' => admin_url( 'css/customize-controls.css' ),
 			'post_id' => get_the_ID(),
 			'admin_url' => admin_url(),
 			'ajaxURL' => admin_url( 'admin-ajax.php' ),

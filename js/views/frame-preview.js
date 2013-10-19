@@ -5,7 +5,8 @@
 
 	Scrivener.Views.FramePreview = Backbone.View.extend( {
 
-		className : 'scrivener-customizer-frame-preview',
+		ID : 'customize-preview',
+		className : 'scrivener-customizer-frame-preview wp-full-overlay-main',
 
 		initialize : function() {
 			this.render();

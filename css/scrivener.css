@@ -28,3 +28,7 @@
 .scrivener-modal .scrivener-customizer-sidebar .content {
 	padding: 10px;
 }
+.scrivener-modal .scrivener-customizer-sidebar .content img {
+	max-width: 100%;
+	height: auto;
+}

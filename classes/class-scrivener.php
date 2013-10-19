@@ -73,13 +73,41 @@ class Scrivener {
 			</div>
 
 			<div class="wp-full-overlay-sidebar-content accordion-container" tabindex="-1">
-				<div id="customize-excerpt" class="accordion-section">
-					<label for="post_excerpt"><?php _e( 'Excerpt:', 'scrivener' ); ?></label>
-					<textarea name="post_excerpt" id="post_excerpt"><?php echo get_the_excerpt(); ?></textarea>
+
+				<div id="customize-info" class="accordion-section">
+					<div class="accordion-section-title" aria-label="<?php _e( 'Post Preview', 'scrivener' );?>" tabindex="0">
+						<span class="preview-notice">
+							<?php _e( 'You are previewing', 'scrivener' );?>
+							<strong class="theme-name"><?php the_title(); ?></strong>
+						</span>
+					</div>
 				</div>
 
-				<div id="customize-thumbnail" class="accordion-section ">
-					<?php echo _wp_post_thumbnail_html( get_post_thumbnail_id(), get_the_ID() ); ?>
+				<div id="customize-theme-controls">
+					<ul>
+						<li id="accordion-section-title_tagline" class="control-section accordion-section top">
+							<h3 class="accordion-section-title" tabindex="0"><?php _e( 'Excerpt', 'scrivener' ); ?></h3>
+							<ul class="accordion-section-content">
+								<li id="customize-control-excerpt" class="customize-control customize-control-textarea">
+									<label>
+										<span class="customize-control-excerpt"><?php _e( 'Excerpt:', 'scrivener' ); ?></span>
+										<textarea name="post_excerpt" id="post_excerpt"><?php echo get_the_excerpt(); ?></textarea>
+									</label>
+								</li>
+							</ul>
+						</li>
+						<li id="accordion-section-colors" class="control-section accordion-section">
+							<h3 class="accordion-section-title" tabindex="0"><?php _e( 'Post Thumbnail', 'scrivener' ); ?></h3>
+							<ul class="accordion-section-content">
+								<li id="customize-control-thumbnail" class="customize-control customize-control-thumbnail">
+									<label>
+										<span class="customize-control-excerpt"><?php _e( 'Post Thumbnail:', 'scrivener' ); ?></span>
+										<?php echo _wp_post_thumbnail_html( get_post_thumbnail_id(), get_the_ID() ); ?>
+									</label>
+								</li>
+							</ul>
+						</li>
+					</ul>
 				</div>
 			</div>
 
@@ -113,6 +141,7 @@ class Scrivener {
 
 		// Customizer controls
 		wp_enqueue_script( 'customize-controls' );
+		wp_enqueue_script( 'accordion'          );
 
 		// include the base component
 		wp_enqueue_script( 'scrivener', $base . '/js/app.js', array( 'backbone' ), '0.1', true );

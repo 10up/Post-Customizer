@@ -27,29 +27,31 @@ class Scrivener {
 		wp_send_json( $data );
 	}
 
-	protected function _render_sidebar_data() {
+	/**
+	 * Render the sidebar for a given post.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param int $post_id
+	 */
+	protected function _render_sidebar_data( $post_id ) {
 		ob_start();
 		?>
 		<h1>Sidebar</h1>
-		<a href="javascript:void(0);" class="button close">Close Customizer</a>
+
+		<p>
+			<label for="post_title"><?php _e( 'Post Title:', 'scrivener' ); ?></label>
+			<input type="text" name="post_title" id="post_title" />
+		</p>
+		<p>
+			<label for="post_title"><?php _e( 'Excerpt:', 'scrivener' ); ?></label>
+			<textarea name="post_excerpt" id="post_excerpt"></textarea>
+		</p>
+
+		<a href="javascript:void(0);" class="button close"><?php _e( 'Close Customizer', 'scrivener' ); ?></a>
 		<?php
 		$html = ob_get_clean();
 		return str_replace( array( "\n", "\t", "\r" ), '', $html );
-	}
-
-	public function get_editable_fields() {
-		$fields = array(
-			'post_title' => array(
-				'label' => 'Post Title',
-				'type' => 'text',
-			),
-			'post_excerpt' => array(
-				'label' => 'Post Title',
-				'type' => 'text',
-			),
-		);
-
-		return apply_filters( 'scrivener_editable_fields', $fields );
 	}
 
 	/**
@@ -69,7 +71,7 @@ class Scrivener {
 		wp_enqueue_script( 'scrivener', $base . '/js/app.js', array( 'backbone' ), '0.1', true );
 
 		$scrivener_data = array(
-			'sections' => $this->get_editable_fields(),
+			'post_id' => get_the_ID(),
 			'admin_url' => admin_url(),
 			'ajaxURL' => admin_url( 'admin-ajax.php' ),
 			'ajaxNonce' => wp_create_nonce( 'scrivener' ),

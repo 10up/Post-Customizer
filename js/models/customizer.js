@@ -40,6 +40,7 @@
 				type : 'POST',
 				dataType : 'JSON',
 				data : {
+					post_id: data.post_id,
 					action : 'scrivener',
 					_ajax_nonce : data.ajaxNonce
 				},

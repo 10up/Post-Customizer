@@ -8,7 +8,9 @@
 		className : 'scrivener-customizer-sidebar',
 
 		events : {
-			'click .button.close' : 'onCloseCustomizerClick'
+			'click .button.close' : 'onCloseCustomizerClick',
+			'click #set-post-thumbnail' : 'openMediaManager',
+			'click #remove-post-thumbnail' : 'removePostThumbnail',
 		},
 
 		initialize : function( attributes ) {
@@ -25,6 +27,16 @@
 
 		close : function() {
 			this.remove();
+		},
+
+		openMediaManager: function( event ) {
+			event.stopPropagation();
+			event.preventDefault();
+			wp.media.featuredImage.frame().open();
+		},
+
+		removePostThumbnail: function( event ) {
+			//wp.media.view.settings.post.featuredImageId = -1;
 		}
 
 	} );

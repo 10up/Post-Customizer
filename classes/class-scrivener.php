@@ -74,7 +74,6 @@ class Scrivener {
 			'ajaxURL' => admin_url( 'admin-ajax.php' ),
 			'ajaxNonce' => wp_create_nonce( 'scrivener' ),
 		);
-
 		wp_localize_script( 'scrivener', 'Scrivener_Data', $scrivener_data );
 
 		// include our dependencies

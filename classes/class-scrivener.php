@@ -38,23 +38,30 @@ class Scrivener {
 	 * @param int $post_id
 	 */
 	protected function _render_sidebar_data( $post_id ) {
-		ob_start();
-		?>
-		<h1>Sidebar</h1>
+		global $post;
 
-		<p>
-			<label for="post_title"><?php _e( 'Post Title:', 'scrivener' ); ?></label>
-			<input type="text" name="post_title" id="post_title" />
-		</p>
-		<p>
-			<label for="post_title"><?php _e( 'Excerpt:', 'scrivener' ); ?></label>
-			<textarea name="post_excerpt" id="post_excerpt"></textarea>
-		</p>
 
-		<a href="javascript:void(0);" class="button close"><?php _e( 'Close Customizer', 'scrivener' ); ?></a>
-		<?php
-		$html = ob_get_clean();
-		return str_replace( array( "\n", "\t", "\r" ), '', $html );
+		if ( $post = get_post( $post_id ) ) {
+			setup_postdata( $post );
+
+			ob_start();
+			?>
+			<h1>Sidebar</h1>
+
+			<p>
+				<label for="post_title"><?php _e( 'Post Title:', 'scrivener' ); ?></label>
+				<input type="text" value="<?php the_title(); ?>" name="post_title" id="post_title" />
+			</p>
+			<p>
+				<label for="post_title"><?php _e( 'Excerpt:', 'scrivener' ); ?></label>
+				<textarea name="post_excerpt" id="post_excerpt"><?php echo get_the_excerpt(); ?></textarea>
+			</p>
+
+			<a href="javascript:void(0);" class="button close"><?php _e( 'Close Customizer', 'scrivener' ); ?></a>
+			<?php
+			$html = ob_get_clean();
+			return str_replace( array( "\n", "\t", "\r" ), '', $html );
+		}
 	}
 
 	/**

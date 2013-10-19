@@ -31,6 +31,7 @@
 		 * Removes the old modal and creates a new one
 		 */
 		openCustomizer : function() {
+			this.closeCustomizer();
 			if( XHR !== null ) {
 				XHR.abort();
 			}
@@ -71,8 +72,6 @@
 		},
 
 		renderCustomizer : function( ajaxData ) {
-			this.closeCustomizer();
-
 			var modal = new Scrivener.Views.Modal( {
 				model : this,
 				ajaxData : ajaxData

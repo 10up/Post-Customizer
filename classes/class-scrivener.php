@@ -59,12 +59,12 @@ class Scrivener {
 			<h1><?php _e( 'Sidebar', 'scrivener' ); ?></h1>
 
 			<p>
-				<label for="post_title"><?php _e( 'Post Title:', 'scrivener' ); ?></label>
-				<input type="text" value="<?php the_title(); ?>" name="post_title" id="post_title" />
-			</p>
-			<p>
-				<label for="post_title"><?php _e( 'Excerpt:', 'scrivener' ); ?></label>
+				<label for="post_excerpt"><?php _e( 'Excerpt:', 'scrivener' ); ?></label>
 				<textarea name="post_excerpt" id="post_excerpt"><?php echo get_the_excerpt(); ?></textarea>
+			</p>
+
+			<p>
+				<?php echo _wp_post_thumbnail_html( get_post_thumbnail_id(), get_the_ID() ); ?>
 			</p>
 
 			<a href="javascript:void(0);" class="button"><?php _e( 'Update', 'scrivener' ); ?></a>

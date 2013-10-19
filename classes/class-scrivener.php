@@ -46,6 +46,7 @@ class Scrivener {
 	 * @since 0.1.0
 	 *
 	 * @param int $post_id
+	 * @return string
 	 */
 	protected function _render_sidebar_data( $post_id ) {
 
@@ -68,21 +69,56 @@ class Scrivener {
 
 		<form id="customize-controls" class="wrap wp-full-overlay-sidebar">
 			<div id="customize-header-actions" class="wp-full-overlay-header">
-				<a href="javascript:void(0);" class="button"><?php _e( 'Update', 'scrivener' ); ?></a>
-				<a href="javascript:void(0);" class="button close"><?php _e( 'Close Customizer', 'scrivener' ); ?></a>
+				<a href="javascript:void(0);" class="button button-primary save"><?php _e( 'Update', 'scrivener' ); ?></a>
+				<a href="javascript:void(0);" class="back button close"><?php _e( 'Close', 'scrivener' ); ?></a>
 			</div>
 
 			<div class="wp-full-overlay-sidebar-content accordion-container" tabindex="-1">
-				<div id="customize-excerpt" class="accordion-section">
-					<label for="post_excerpt"><?php _e( 'Excerpt:', 'scrivener' ); ?></label>
-					<textarea name="post_excerpt" id="post_excerpt"><?php echo get_the_excerpt(); ?></textarea>
+
+				<div id="customize-info" class="accordion-section">
+					<div class="accordion-section-title" aria-label="<?php _e( 'Post Preview', 'scrivener' );?>" tabindex="0">
+						<span class="preview-notice">
+							<?php _e( 'You are previewing', 'scrivener' );?>
+							<strong class="theme-name"><?php the_title(); ?></strong>
+						</span>
+					</div>
 				</div>
 
-				<div id="customize-thumbnail" class="accordion-section ">
-					<?php echo _wp_post_thumbnail_html( get_post_thumbnail_id(), get_the_ID() ); ?>
+				<div id="customize-theme-controls">
+					<ul>
+						<li id="accordion-section-title_tagline" class="control-section accordion-section top">
+							<h3 class="accordion-section-title" tabindex="0"><?php _e( 'Excerpt', 'scrivener' ); ?></h3>
+							<ul class="accordion-section-content">
+								<li id="customize-control-excerpt" class="customize-control customize-control-textarea">
+									<label>
+										<span class="customize-control-excerpt"><?php _e( 'Excerpt:', 'scrivener' ); ?></span>
+										<textarea name="post_excerpt" id="post_excerpt"><?php echo get_the_excerpt(); ?></textarea>
+									</label>
+								</li>
+							</ul>
+						</li>
+						<li id="accordion-section-colors" class="control-section accordion-section">
+							<h3 class="accordion-section-title" tabindex="0"><?php _e( 'Post Thumbnail', 'scrivener' ); ?></h3>
+							<ul class="accordion-section-content">
+								<li id="customize-control-thumbnail" class="customize-control customize-control-thumbnail">
+									<label>
+										<span class="customize-control-excerpt"><?php _e( 'Post Thumbnail:', 'scrivener' ); ?></span>
+										<?php echo _wp_post_thumbnail_html( get_post_thumbnail_id(), get_the_ID() ); ?>
+									</label>
+								</li>
+							</ul>
+						</li>
+					</ul>
 				</div>
 			</div>
-		</div>
+
+			<div id="customize-footer-actions" class="wp-full-overlay-footer">
+				<a href="#" class="collapse-sidebar button-secondary" title="<?php _e( 'Collapse Sidebar', 'scrivener' ); ?>">
+					<span class="collapse-sidebar-arrow"></span>
+					<span class="collapse-sidebar-label"><?php _e( 'Collapse', 'scrivener' ); ?></span>
+				</a>
+			</div>
+		</form>
 
 		<?php
 
@@ -106,12 +142,13 @@ class Scrivener {
 
 		// Customizer controls
 		wp_enqueue_script( 'customize-controls' );
-		wp_enqueue_style( 'customize-controls' );
+		wp_enqueue_script( 'accordion' );
 
 		// include the base component
 		wp_enqueue_script( 'scrivener', $base . '/js/app.js', array( 'backbone' ), '0.1', true );
 
 		$scrivener_data = array(
+			'style_url' => admin_url( 'css/customize-controls.css' ),
 			'post_id' => get_the_ID(),
 			'admin_url' => admin_url(),
 			'ajaxURL' => admin_url( 'admin-ajax.php' ),
@@ -131,7 +168,7 @@ class Scrivener {
 		wp_enqueue_script( 'scrivener-bootstrap', $base . '/js/main.js', array( 'scrivener' ) );
 
 		// include CSS
-		wp_enqueue_style( 'bugpresser', $base . '/css/scrivener.css', array() );
+		wp_enqueue_style( 'scrivener', $base . '/css/scrivener.css' );
 	}
 
 	/**
@@ -173,7 +210,11 @@ class Scrivener {
 		wp();
 		remove_action( 'wp_head', '_admin_bar_bump_cb' );
 
-		wp_enqueue_script( 'scrivener_frame', plugins_url( 'js/frame.js', __DIR__ ), array(), '0.1.0', true );
+		$base = plugins_url( '', dirname( __FILE__ ) );
+
+		wp_enqueue_script( 'ckeditor', $base . '/js/ckeditor/ckeditor.js', array(), '10.0.0', true );
+		wp_enqueue_script( 'scrivener-frame', $base . '/js/frame.js', array( 'ckeditor', 'jquery' ), '0.1.0', true );
+		wp_enqueue_style( 'scrivener', $base . '/css/scrivener-frame-preview.css' );
 
 		// Wrap the title and content in Scrivener ID's
 		add_filter( 'the_title',   array( $this, 'filter_the_title'   ) );
@@ -196,7 +237,7 @@ class Scrivener {
 	 * @return string $title wrapped in a div
 	 */
 	public static function filter_the_title( $title = '' ) {
-		return '<div id="scrivener-title">' . $title . '</div>';
+		return '<div class="scrivener-title scrivener-focused-element" contenteditable="true">' . $title . '</div>';
 	}
 
 	/**
@@ -208,7 +249,7 @@ class Scrivener {
 	 * @return string $content wrapped in a div
 	 */
 	public static function filter_the_content( $content = '' ) {
-		return '<div id="scrivener-content">' . $content . '</div>';
+		return '<div class="scrivener-content scrivener-focused-element" contenteditable="true">' . $content . '</div>';
 	}
 
 	/**

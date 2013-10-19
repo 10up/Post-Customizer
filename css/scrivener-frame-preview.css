@@ -1,0 +1,19 @@
+.scrivener-frame-preview-overlay {
+	background-color: #000;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 1;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	filter: alpha(opacity=30);
+	-moz-opacity: 0.3;
+	-khtml-opacity: 0.3;
+	opacity: 0.3;
+}
+.scrivener-focused-element {
+	z-index: 9001;
+	background: url(../images/white-bg-transparent.png) repeat;
+	outline: #fff solid 5px;
+}

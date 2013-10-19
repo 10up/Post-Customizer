@@ -94,7 +94,15 @@
 		},
 
 		autosavePost : function( html ) {
-			// tinymce.get( 'content' ).setContent( html, { format : 'raw' } );
+			var tinymceContent = tinymce.get( 'content' );
+
+			if( tinymceContent !== undefined ) {
+				tinymceContent.setContent( html, { format : 'raw' } );
+			} else {
+				document.getElementById( 'content').value = html;
+			}
+
+			autosave();
 		}
 
 	} );

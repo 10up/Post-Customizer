@@ -139,7 +139,6 @@ class Scrivener {
 
 		// Customizer controls
 		wp_enqueue_script( 'customize-controls' );
-		wp_enqueue_script( 'accordion' );
 
 		// include the base component
 		wp_enqueue_script( 'scrivener', $base . '/js/app.js', array( 'backbone' ), '0.1', true );

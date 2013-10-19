@@ -56,6 +56,10 @@ class Scrivener {
 		if ( empty( $_post ) )
 			return;
 
+		// Purposely overwrite the $post global. Barf, but... necessary.
+		global $post;
+		$post = $_post;
+
 		// Setup the global post data
 		setup_postdata( $_post );
 

@@ -90,6 +90,10 @@
 				currentModalView.sidebar.close();
 				currentModalView.sidebar = null;
 			}
+		},
+
+		autosavePost : function( html ) {
+			// tinymce.get( 'content' ).setContent( html, { format : 'raw' } );
 		}
 
 	} );

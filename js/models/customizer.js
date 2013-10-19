@@ -42,6 +42,7 @@
 				data : {
 					post_id: data.post_id,
 					action : 'scrivener',
+					scrivener_action: 'get_sidebar',
 					_ajax_nonce : data.ajaxNonce
 				},
 				success : $.proxy( this.renderCustomizer, this )

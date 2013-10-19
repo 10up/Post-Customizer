@@ -48,32 +48,45 @@ class Scrivener {
 	 * @param int $post_id
 	 */
 	protected function _render_sidebar_data( $post_id ) {
+
+		// Look for the post
+		$_post = get_post( $post_id );
+		
+		// Bail if no post
+		if ( empty( $_post ) )
+			return;
+
+		// Purposely overwrite the $post global. Barf, but... necessary.
 		global $post;
+		$post = $_post;
 
+		// Setup the global post data
+		setup_postdata( $_post );
 
-		if ( $post = get_post( $post_id ) ) {
-			setup_postdata( $post );
+		// Start the output buffer for the sidebar
+		ob_start(); ?>
 
-			ob_start();
-			?>
-			<h1><?php _e( 'Sidebar', 'scrivener' ); ?></h1>
+		<div id="customize-header-actions" class="wp-full-overlay-header">
+			<a href="javascript:void(0);" class="button"><?php _e( 'Update', 'scrivener' ); ?></a>
+			<a href="javascript:void(0);" class="button close"><?php _e( 'Close Customizer', 'scrivener' ); ?></a>
+		</div>
 
-			<p>
+		<div class="wp-full-overlay-sidebar-content accordion-container" tabindex="-1">
+			<div id="customize-excerpt" class="accordion-section">
 				<label for="post_excerpt"><?php _e( 'Excerpt:', 'scrivener' ); ?></label>
 				<textarea name="post_excerpt" id="post_excerpt"><?php echo get_the_excerpt(); ?></textarea>
-			</p>
+			</div>
 
-			<p>
+			<div id="customize-thumbnail" class="accordion-section ">
 				<?php echo _wp_post_thumbnail_html( get_post_thumbnail_id(), get_the_ID() ); ?>
-			</p>
+			</div>
+		</div>
 
-			<a href="javascript:void(0);" class="button"><?php _e( 'Update', 'scrivener' ); ?></a>
+		<?php
 
-			<a href="javascript:void(0);" class="button close"><?php _e( 'Close Customizer', 'scrivener' ); ?></a>
-			<?php
-			$html = ob_get_clean();
-			return str_replace( array( "\n", "\t", "\r" ), '', $html );
-		}
+		$html = ob_get_clean();
+
+		return str_replace( array( "\n", "\t", "\r" ), '', $html );
 	}
 
 	/**
@@ -88,6 +101,10 @@ class Scrivener {
 			return;
 
 		$base = plugins_url( '', dirname( __FILE__ ) );
+
+		// Customizer controls
+		wp_enqueue_script( 'customize-controls' );
+		wp_enqueue_style( 'customize-controls' );
 
 		// include the base component
 		wp_enqueue_script( 'scrivener', $base . '/js/app.js', array( 'backbone' ), '0.1', true );

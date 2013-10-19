@@ -82,7 +82,7 @@ class Scrivener {
 					<?php echo _wp_post_thumbnail_html( get_post_thumbnail_id(), get_the_ID() ); ?>
 				</div>
 			</div>
-		</div>
+		</form>
 
 		<?php
 

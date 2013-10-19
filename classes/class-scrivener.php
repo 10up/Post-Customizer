@@ -20,12 +20,22 @@ class Scrivener {
 	public function process_ajax_request() {
 		check_ajax_referer( 'scrivener' );
 
-		if ( empty( $_POST['post_id'] ) )
+		if ( empty( $_POST['scrivener_action'] ) )
 			return;
 
-		$data = array(
-			'sidebarHTML' => $this->_render_sidebar_data( $_POST['post_id'] ),
-		);
+		if ( 'get_sidebar' == $_POST['scrivener_action'] ) {
+
+			if ( empty( $_POST['post_id'] ) )
+				return;
+
+			$data = array(
+				'sidebarHTML' => $this->_render_sidebar_data( $_POST['post_id'] ),
+			);
+		} elseif ( 'save_post' == $_GET['scrivener_action'] ) {
+
+		} else {
+			//Error!
+		}
 
 		wp_send_json( $data );
 	}
@@ -46,7 +56,7 @@ class Scrivener {
 
 			ob_start();
 			?>
-			<h1>Sidebar</h1>
+			<h1><?php _e( 'Sidebar', 'scrivener' ); ?></h1>
 
 			<p>
 				<label for="post_title"><?php _e( 'Post Title:', 'scrivener' ); ?></label>
@@ -56,6 +66,8 @@ class Scrivener {
 				<label for="post_title"><?php _e( 'Excerpt:', 'scrivener' ); ?></label>
 				<textarea name="post_excerpt" id="post_excerpt"><?php echo get_the_excerpt(); ?></textarea>
 			</p>
+
+			<a href="javascript:void(0);" class="button"><?php _e( 'Update', 'scrivener' ); ?></a>
 
 			<a href="javascript:void(0);" class="button close"><?php _e( 'Close Customizer', 'scrivener' ); ?></a>
 			<?php

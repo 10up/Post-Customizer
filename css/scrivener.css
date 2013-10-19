@@ -1,30 +1,12 @@
 .body-absolute {
 	position: absolute;
 }
-.scrivener-modal .scrivener-customizer-frame-preview {
-	position: fixed;
-	height: 100%;
-	width: 80%;
-	left: 20%;
-	top: 0;
-	background-color: #fff;
-}
+
 .scrivener-modal .scrivener-customizer-frame-preview iframe {
 	position: absolute;
 	height: 100%;
 	width: 100%;
 	top: 0;
 	left: 0;
-	background: url(../images/loader.gif) no-repeat center center;
-}
-.scrivener-modal .scrivener-customizer-sidebar {
-	position: fixed;
-	height: 100%;
-	width: 20%;
-	top: 0;
-	left: 0;
-	background-color: #d9d9d9;
-}
-.scrivener-modal .scrivener-customizer-sidebar .content {
-	padding: 10px;
+	background: url('../images/loader.gif') no-repeat center center;
 }

@@ -66,19 +66,21 @@ class Scrivener {
 		// Start the output buffer for the sidebar
 		ob_start(); ?>
 
-		<div id="customize-header-actions" class="wp-full-overlay-header">
-			<a href="javascript:void(0);" class="button"><?php _e( 'Update', 'scrivener' ); ?></a>
-			<a href="javascript:void(0);" class="button close"><?php _e( 'Close Customizer', 'scrivener' ); ?></a>
-		</div>
-
-		<div class="wp-full-overlay-sidebar-content accordion-container" tabindex="-1">
-			<div id="customize-excerpt" class="accordion-section">
-				<label for="post_excerpt"><?php _e( 'Excerpt:', 'scrivener' ); ?></label>
-				<textarea name="post_excerpt" id="post_excerpt"><?php echo get_the_excerpt(); ?></textarea>
+		<form id="customize-controls" class="wrap wp-full-overlay-sidebar">
+			<div id="customize-header-actions" class="wp-full-overlay-header">
+				<a href="javascript:void(0);" class="button"><?php _e( 'Update', 'scrivener' ); ?></a>
+				<a href="javascript:void(0);" class="button close"><?php _e( 'Close Customizer', 'scrivener' ); ?></a>
 			</div>
 
-			<div id="customize-thumbnail" class="accordion-section ">
-				<?php echo _wp_post_thumbnail_html( get_post_thumbnail_id(), get_the_ID() ); ?>
+			<div class="wp-full-overlay-sidebar-content accordion-container" tabindex="-1">
+				<div id="customize-excerpt" class="accordion-section">
+					<label for="post_excerpt"><?php _e( 'Excerpt:', 'scrivener' ); ?></label>
+					<textarea name="post_excerpt" id="post_excerpt"><?php echo get_the_excerpt(); ?></textarea>
+				</div>
+
+				<div id="customize-thumbnail" class="accordion-section ">
+					<?php echo _wp_post_thumbnail_html( get_post_thumbnail_id(), get_the_ID() ); ?>
+				</div>
 			</div>
 		</div>
 

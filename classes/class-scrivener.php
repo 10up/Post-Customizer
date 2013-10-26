@@ -235,7 +235,7 @@ class Scrivener {
 	public static function filter_the_title( $title = '' ) {
 		
 		// Bail if not in the main query loop
-		if ( ! in_the_loop() )
+		if ( ! in_the_loop() || defined( 'COMMENTS_TEMPLATE' ) )
 			return $title;
 
 		return '<div class="scrivener-title scrivener-focused-element" contenteditable="true">' . $title . '</div>';
@@ -252,7 +252,7 @@ class Scrivener {
 	public static function filter_the_content( $content = '' ) {
 
 		// Bail if not in the main query loop
-		if ( ! in_the_loop() )
+		if ( ! in_the_loop() || defined( 'COMMENTS_TEMPLATE' ) )
 			return $content;
 
 		return '<div class="scrivener-content scrivener-focused-element" contenteditable="true">' . $content . '</div>';

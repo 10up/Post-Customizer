@@ -1,19 +1,22 @@
 .scrivener-frame-preview-overlay {
-	background-color: #000;
 	position: fixed;
 	top: 0;
 	left: 0;
 	height: 100%;
 	width: 100%;
 	z-index: 1;
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-	filter: alpha(opacity=30);
-	-moz-opacity: 0.3;
-	-khtml-opacity: 0.3;
-	opacity: 0.3;
+	cursor: not-allowed;
 }
+
 .scrivener-focused-element {
 	z-index: 9001;
-	background: url(../images/white-bg-transparent.png) repeat;
-	outline: #fff solid 5px;
+	cursor: text;
+}
+
+.scrivener-focused-element:hover {
+	outline: rgba(240, 240, 240, 0.5) solid 5px;
+}
+
+.scrivener-focused-element:focus {
+	outline: transparent solid 5px;
 }

@@ -208,9 +208,9 @@ class Scrivener {
 
 		$base = plugins_url( '', dirname( __FILE__ ) );
 
-		wp_enqueue_script( 'ckeditor', $base . '/js/ckeditor/ckeditor.js', array(), '10.0.0', true );
-		wp_enqueue_script( 'scrivener-frame', $base . '/js/frame.js', array( 'ckeditor', 'jquery' ), '0.1.0', true );
-		wp_enqueue_style( 'scrivener', $base . '/css/scrivener-frame-preview.css' );
+		wp_enqueue_script( 'ckeditor',        $base . '/js/ckeditor/ckeditor.js',         array(), '10.0.0', true );
+		wp_enqueue_script( 'scrivener-frame', $base . '/js/frame.js',                     array( 'ckeditor', 'jquery' ), '0.1.0', true );
+		wp_enqueue_style( 'scrivener',        $base . '/css/scrivener-frame-preview.css', array(), '0.2',    false );
 
 		// Wrap the title and content in Scrivener ID's
 		add_filter( 'the_title',   array( $this, 'filter_the_title'   ) );

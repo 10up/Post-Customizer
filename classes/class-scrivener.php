@@ -238,7 +238,7 @@ class Scrivener {
 		if ( ! in_the_loop() || defined( 'COMMENTS_TEMPLATE' ) )
 			return $title;
 
-		return '<div class="scrivener-title scrivener-focused-element" contenteditable="true">' . $title . '</div>';
+		return '<div data-wp-field="post_title" class="scrivener-title scrivener-focused-element" contenteditable="true">' . $title . '</div>';
 	}
 
 	/**
@@ -255,7 +255,7 @@ class Scrivener {
 		if ( ! in_the_loop() || defined( 'COMMENTS_TEMPLATE' ) )
 			return $content;
 
-		return '<div class="scrivener-content scrivener-focused-element" contenteditable="true">' . $content . '</div>';
+		return '<div data-wp-field="post_content" class="scrivener-content scrivener-focused-element" contenteditable="true">' . $content . '</div>';
 	}
 
 	/**

@@ -12,8 +12,6 @@
                     event.id = editor.name;
                     event.container = editor.container;
 
-                    console.log(editor);
-
                     $( 'body' ).trigger( event );
             	} 
             });

@@ -23,7 +23,10 @@
 				url : ajaxurl,
 				type : 'post',
 				data : {
-					action : 'scrivener_save_field',
+					action : 'scrivener',
+					scrivener_action : 'save_field',
+					post_id : Scrivener_Data.post_id,
+					_ajax_nonce : Scrivener_Data.ajaxNonce,
 					data : event.text,
 					field : event.container.$.getAttribute( 'data-wp-field' ),
 				}

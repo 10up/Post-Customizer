@@ -31,8 +31,18 @@ class Scrivener {
 			$data = array(
 				'sidebarHTML' => $this->_render_sidebar_data( $_POST['post_id'] ),
 			);
-		} elseif ( 'save_post' == $_GET['scrivener_action'] ) {
-
+		} elseif ( 'save_field' == $_POST['scrivener_action'] && ! empty( $_POST['field'] ) && ! empty( $_POST['post_id'] ) ) {
+			$data = array();
+			switch( $_POST['field'] ) {
+				case 'post_title':
+				case 'post_content':
+					wp_update_post( array(
+						'ID' => $_POST['post_id'],
+						$_POST['field'] => $_POST['data'],
+					) );
+					$data['changed'] = $_POST['field'];
+					break;
+			}
 		} else {
 			//Error!
 		}
@@ -211,6 +221,12 @@ class Scrivener {
 		wp_enqueue_script( 'ckeditor',        $base . '/js/ckeditor/ckeditor.js',         array(), '10.0.0', true );
 		wp_enqueue_script( 'scrivener-frame', $base . '/js/frame.js',                     array( 'ckeditor', 'jquery' ), '0.1.0', true );
 		wp_enqueue_style( 'scrivener',        $base . '/css/scrivener-frame-preview.css', array(), '0.2',    false );
+
+		$data = array(
+			'post_id' => get_the_ID(),
+			'ajaxNonce' => wp_create_nonce( 'scrivener' ),
+		);
+		wp_localize_script( 'scrivener-frame', 'Scrivener_Data', $data );
 
 		// Wrap the title and content in Scrivener ID's
 		add_filter( 'the_title',   array( $this, 'filter_the_title'   ) );

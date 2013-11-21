@@ -1,4 +1,4 @@
-( function( window, $, CKEDITOR, undefined ) {
+( function( window, $, undefined ) {
 
 	var document = window.document;
 	var cache = {};
@@ -18,26 +18,15 @@
 
 	function registerCKEditorHandlers() {
 
-		CKEDITOR.on( 'instanceCreated', function( event ) {
-			event.editor.on( 'change', function( changeEvent ) {
-			
-				var editor = changeEvent.editor;
-
-				var container = editor.document.$.activeElement;
-				
-				// We will save to this field in WP
-				var saveTo = container.getAttribute( 'data-wp-field' );
-
-				// Next get content of editor
-
-				/**
-				send content back to WP using AJAX
-				if ( lastAjaxCall != null ) lastAjaxCall.abort()
-				lastAjaxCall = $.ajax( ... )
-
-				we either do this or have a save button in the editor
-				**/
-
+		$( 'body' ).on( 'ckSave', function( event ) {
+			$.ajax( {
+				url : ajaxurl,
+				type : 'post',
+				data : {
+					action : 'scrivener_save_field',
+					data : event.text,
+					field : event.container.$.getAttribute( 'data-wp-field' ),
+				}
 			} );
 		} );
 
@@ -45,4 +34,4 @@
 
 	$( document ).ready( init );
 
-} )( window, jQuery, CKEDITOR );
+} )( window, jQuery );

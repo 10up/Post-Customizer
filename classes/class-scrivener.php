@@ -249,11 +249,11 @@ class Scrivener {
 	 * @param string $title
 	 * @return string $title wrapped in a div
 	 */
-	public static function filter_the_title( $title = '' ) {
-		
+	public function filter_the_title( $title = '' ) {
 		// Bail if not in the main query loop
-		if ( ! in_the_loop() || defined( 'COMMENTS_TEMPLATE' ) )
+		if ( ! $this->okay_to_add_editor( get_the_ID() ) ) {
 			return $title;
+		}
 
 		return '<div data-wp-field="post_title" class="scrivener-title scrivener-focused-element" contenteditable="true">' . $title . '</div>';
 	}
@@ -266,11 +266,11 @@ class Scrivener {
 	 * @param string $content
 	 * @return string $content wrapped in a div
 	 */
-	public static function filter_the_content( $content = '' ) {
-
+	public function filter_the_content( $content = '' ) {
 		// Bail if not in the main query loop
-		if ( ! in_the_loop() || defined( 'COMMENTS_TEMPLATE' ) )
+		if ( ! $this->okay_to_add_editor( get_the_ID() ) ) {
 			return $content;
+		}
 
 		return '<div data-wp-field="post_content" class="scrivener-content scrivener-focused-element" contenteditable="true">' . $content . '</div>';
 	}

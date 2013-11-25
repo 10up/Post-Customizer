@@ -230,14 +230,14 @@ class Scrivener {
 		wp_localize_script( 'scrivener-frame', 'Scrivener_Data', $data );
 
 		// Wrap the title and content in Scrivener ID's
-		add_filter( 'the_title',   array( $this, 'filter_the_title'   ) );
+		add_filter( 'the_title',   array( $this, 'filter_the_title'   ), 10, 2 );
 		add_filter( 'the_content', array( $this, 'filter_the_content' ) );
 
 		// Pul in the template-loader to output theme-side post-preview
 		require( ABSPATH . WPINC . '/template-loader.php' );
 
 		// Remove filters (maybe not necessary)
-		remove_filter( 'the_title',   array( $this, 'filter_the_title'   ) );
+		remove_filter( 'the_title',   array( $this, 'filter_the_title'   ), 10, 2 );
 		remove_filter( 'the_content', array( $this, 'filter_the_content' ) );
 	}
 
@@ -247,11 +247,13 @@ class Scrivener {
 	 * @since 0.1.0
 	 *
 	 * @param string $title
+	 * @param int    $id
+	 *
 	 * @return string $title wrapped in a div
 	 */
-	public function filter_the_title( $title = '' ) {
+	public function filter_the_title( $title = '', $id = 0 ) {
 		// Bail if not in the main query loop
-		if ( ! $this->okay_to_add_editor( get_the_ID() ) ) {
+		if ( ! $this->okay_to_add_editor( $id ) ) {
 			return $title;
 		}
 
@@ -264,6 +266,7 @@ class Scrivener {
 	 * @since 0.1.0
 	 *
 	 * @param string $content
+	 *
 	 * @return string $content wrapped in a div
 	 */
 	public function filter_the_content( $content = '' ) {

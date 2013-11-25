@@ -70,6 +70,10 @@
 				$post_thumbnail_meta_position.after( $post_thumbnail_meta );
 				$post_thumbnail_meta_position = null;
 			}
+		},
+
+		changePostTitle : function( newTitle ) {
+			this.$el.find( '.theme-name' ).html( newTitle );
 		}
 
 	} );

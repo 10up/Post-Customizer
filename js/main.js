@@ -5,11 +5,11 @@
 
 	$( document ).ready( function() {
 
-		var coreModel = new Scrivener.Models.Core( {
+		Scrivener.Instance.coreModel = new Scrivener.Models.Core( {
 			localizedData : Scrivener_Data
 		} );
-		var coreView = new Scrivener.Views.Core( {
-			model : coreModel
+		Scrivener.Instance.coreView = new Scrivener.Views.Core( {
+			model : Scrivener.Instance.coreModel
 		} );
 
 	} );

@@ -137,6 +137,10 @@
 			} else {
 				document.getElementById( 'content').value = html;
 			}
+		},
+
+		changePostTitle : function( newTitle ) {
+			currentModalView.sidebar.changePostTitle( newTitle );
 		}
 
 	} );

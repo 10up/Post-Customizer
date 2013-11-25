@@ -38,13 +38,22 @@
 		var _Views = {};
 
 		/**
+		 * Container for any instance variables we need to store across the entire page.
+		 *
+		 * @type {{}}
+		 * @private
+		 */
+		var _Instance = {};
+
+		/**
 		 * Return anything that we want to expose publicly
 		 */
 		return {
 			Collections : _Collections,
 			Models : _Models,
 			Routers : _Routers,
-			Views : _Views
+			Views : _Views,
+			Instance : _Instance
 		};
 	}
 

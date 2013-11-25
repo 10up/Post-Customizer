@@ -1,4 +1,4 @@
-( function( window, $, ajaxURL, undefined ) {
+( function( window, $, ajaxURL, Scrivener, undefined ) {
 
 	var document = window.document;
 	var cache = {};
@@ -31,16 +31,29 @@
 			post_id : Scrivener_Data.post_id,
 			_ajax_nonce : Scrivener_Data.ajaxNonce,
 			data : event.text,
-			field : event.container.$.getAttribute( 'data-wp-field' ),
+			field : event.container.$.getAttribute( 'data-wp-field' )
 		};
 
 		cache.XHR = $.ajax( {
 			url : ajaxURL,
 			type : 'post',
-			data : ajaxData
+			data : ajaxData,
+			success : onCKEditorSaveSuccess
 		} );
+	}
+
+	function onCKEditorSaveSuccess( data ) {
+		if( data.changed === undefined ) {
+			return;
+		}
+
+		var customizer = Scrivener.Instance.coreModel.getCustomizerModelObject();
+
+		if( data.changed === 'post_title' ) {
+			customizer.changePostTitle( data.value );
+		}
 	}
 
 	$( document ).ready( init );
 
-} )( window, jQuery, parent.ajaxurl );
+} )( window, jQuery, parent.ajaxurl, parent.Scrivener );

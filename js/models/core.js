@@ -19,6 +19,13 @@
 				localizedData : this.get( 'localizedData' )
 			} );
 			customizerModel.openCustomizer();
+		},
+
+		getCustomizerModelObject : function() {
+			if( customizerModel === null ) {
+				return false;
+			}
+			return customizerModel;
 		}
 
 	} );

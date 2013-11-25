@@ -41,6 +41,7 @@ class Scrivener {
 						$_POST['field'] => $_POST['data'],
 					) );
 					$data['changed'] = $_POST['field'];
+					$data['value'] = $_POST['data'];
 					break;
 			}
 		} else {

@@ -290,6 +290,30 @@ class Scrivener {
 		return self::$_instance;
 	}
 
+	/**
+	 * Checks if we're in the loop and currently filtering values from the
+	 * correct post
+	 *
+	 * @uses  in_the_loop()
+	 * @uses  COMMENTS_TEMPLATE
+	 * @uses  get_the_ID()
+	 * @uses  get_queried_object_id()
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param int $id The current post id
+	 *
+	 * @return bool Whether it's okay to add the editor wrapper on a filter
+	 */
+	protected function okay_to_add_editor( $id = 0 ) {
+		return (
+			in_the_loop() &&
+			! defined( 'COMMENTS_TEMPLATE' ) &&
+			(int) $id &&
+			(int) $id === (int) get_queried_object_id()
+		);
+	}
+
 } // Scrivener
 
 Scrivener::init();

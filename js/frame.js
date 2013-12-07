@@ -1,4 +1,4 @@
-( function( window, $, ajaxURL, Scrivener, undefined ) {
+( function( window, $, ajaxURL, Scrivener, wp, undefined ) {
 
 	var document = window.document;
 	var cache = {};
@@ -7,7 +7,32 @@
 		cacheUI();
 		createOverlay();
 		registerCKEditorHandlers();
-	}
+
+		// Override wp.autosave.getPostData method
+		wp.autosave.getPostData = getPostData;
+
+		registerAutosaveInterval();
+	};
+
+	function registerAutosaveInterval() {
+		// Autosave every two minutes
+		cache.autosaveInterval = setInterval( autosave,  (1000 * 60 * 2 ) );
+	};
+
+	function getPostData() {
+		var data = {
+			action : 'autosave',
+			autosave : true,
+			autosavenonce : Scrivener_Data.autosaveNonce,
+			post_id : Scrivener_Data.post_id,
+			//excerpt : $( '#excerpt' ).val() || ''
+		};
+
+		data.post_title = $( '.scrivener-title' ).html() || '';
+		data.content = $( '.scrivener-content' ).html() || '';
+
+		return data;
+	};
 
 	function cacheUI() {
 		cache.$body = $( document.body );
@@ -56,4 +81,4 @@
 
 	$( document ).ready( init );
 
-} )( window, jQuery, parent.ajaxurl, parent.Scrivener );
+} )( window, jQuery, parent.ajaxurl, parent.Scrivener, wp );

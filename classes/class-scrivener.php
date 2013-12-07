@@ -219,6 +219,9 @@ class Scrivener {
 
 		$base = plugins_url( '', dirname( __FILE__ ) );
 
+		wp_enqueue_script( 'common' );
+		wp_enqueue_script( 'autosave' );
+
 		wp_enqueue_script( 'ckeditor',        $base . '/js/ckeditor/ckeditor.js',         array(), '10.0.0', true );
 		wp_enqueue_script( 'scrivener-frame', $base . '/js/frame.js',                     array( 'ckeditor', 'jquery' ), '0.1.0', true );
 		wp_enqueue_style( 'scrivener',        $base . '/css/scrivener-frame-preview.css', array(), '0.2',    false );
@@ -226,6 +229,7 @@ class Scrivener {
 		$data = array(
 			'post_id' => get_the_ID(),
 			'ajaxNonce' => wp_create_nonce( 'scrivener' ),
+			'autosaveNonce' => wp_create_nonce( 'autosave' ),
 		);
 		wp_localize_script( 'scrivener-frame', 'Scrivener_Data', $data );
 

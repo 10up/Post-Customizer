@@ -13,8 +13,9 @@
 		},
 
 		render : function() {
-			var html = '<iframe src="' + this.model.buildPreviewURL() + '"></iframe>';
-			this.$el.html( html );
+			var $previewFrame = $( '<iframe src="' + this.model.buildPreviewURL() + '"></iframe>' );
+			this.$el.html( $previewFrame );
+			this.model.set( { '$previewFrame' : $previewFrame } );
 		},
 
 		close : function() {

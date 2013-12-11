@@ -168,7 +168,7 @@ class Scrivener {
 		wp_enqueue_script( 'scrivener-models-customizer', $base . '/js/models/customizer.js', array( 'scrivener' ) );
 		wp_enqueue_script( 'scrivener-views-core', $base . '/js/views/core.js', array( 'scrivener-models-core' ) );
 		wp_enqueue_script( 'scrivener-views-modal', $base . '/js/views/modal.js', array( 'scrivener-models-customizer' ) );
-		wp_enqueue_script( 'scrivener-views-sidebar', $base . '/js/views/sidebar.js', array( 'scrivener-models-customizer' ) );
+		wp_enqueue_script( 'scrivener-views-sidebar', $base . '/js/views/sidebar.js', array( 'scrivener-models-customizer' ), '1.0.1' );
 		wp_enqueue_script( 'scrivener-views-frame-preview', $base . '/js/views/frame-preview.js', array( 'scrivener-models-customizer' ) );
 
 		// include bootstrap
@@ -204,6 +204,14 @@ class Scrivener {
 		}
 	}
 
+	public function trick_autosave() {
+	?>
+		<script type="text/javascript">
+		var pagenow = 'scrivener';
+		</script>
+	<?php
+	}
+
 	/**
 	 * Admin post handler to display the preview
 	 *
@@ -217,9 +225,12 @@ class Scrivener {
 		wp();
 		remove_action( 'wp_head', '_admin_bar_bump_cb' );
 
+		add_action( 'wp_head', array( $this, 'trick_autosave' ) );
+
 		$base = plugins_url( '', dirname( __FILE__ ) );
 
 		wp_enqueue_script( 'common' );
+		wp_enqueue_script( 'post' );
 		wp_enqueue_script( 'autosave' );
 
 		wp_enqueue_script( 'ckeditor',        $base . '/js/ckeditor/ckeditor.js',         array(), '10.0.0', true );
@@ -229,6 +240,7 @@ class Scrivener {
 		$data = array(
 			'post_id' => get_the_ID(),
 			'ajaxNonce' => wp_create_nonce( 'scrivener' ),
+			'saveNonce' => wp_create_nonce( 'update-post_' . get_the_ID() ),
 			'autosaveNonce' => wp_create_nonce( 'autosave' ),
 		);
 		wp_localize_script( 'scrivener-frame', 'Scrivener_Data', $data );

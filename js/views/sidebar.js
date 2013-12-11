@@ -8,6 +8,8 @@
 	var $post_thumbnail_sidebar_container = null;
 	var $post_thumbnail_meta_position_parent = null;
 	var $accordion_section_content = $( '.accordion-section-content' );
+	var $excerpt_input = null;
+	var save_deferred = null;
 
 	Scrivener.Views.Sidebar = Backbone.View.extend( {
 
@@ -15,11 +17,56 @@
 
 		events : {
 			'click .button.close' : 'onCloseCustomizerClick',
+			'click .button.save' : 'onUpdateClick',
 			'click .accordion-section-title' : 'toggleAccordionSection',
 		},
 
 		initialize : function( attributes ) {
 			this.render( attributes.ajaxData );
+
+			$( window ).on( 'message', _.bind( this.messageListener, this ) );
+		},
+
+		onUpdateClick : function( event ) {
+			if ( ! save_deferred || save_deferred.state() == 'resolved' ) {
+
+				// add spinner
+
+				var message = {
+					'excerpt' : ( $excerpt_input ) ? $excerpt_input.val() : '',
+					'type' : 'save',
+				};
+
+				var $previewFrame = this.model.get( '$previewFrame' );
+
+				save_deferred = $.Deferred();
+
+				$previewFrame[0].contentWindow.postMessage( message, '*' );
+
+				$.when( save_deferred ).then( function() {
+					// remove spinner
+				} );
+			}
+		},
+
+		messageListener : function( event ) {
+			var message = event.originalEvent.data;
+
+			if ( message.type == 'requestExcerpt' ) {
+				this.sendExcerpt();
+			} else if ( message.type == 'saveComplete' ) {
+				save_deferred.resolve();
+			}
+		},
+
+		sendExcerpt : function() {
+			var message = {
+				'excerpt' : ( $excerpt_input ) ? $excerpt_input.val() : '',
+				'type' : 'excerpt',
+			};
+
+			var $previewFrame = this.model.get( '$previewFrame' );
+			$previewFrame[0].contentWindow.postMessage( message, '*' );
 		},
 
 		toggleAccordionSection : function( event ) {
@@ -40,6 +87,8 @@
 
 		render : function( ajaxData ) {
 			this.$el.html( '<div class="content">' + ajaxData.sidebarHTML + '</div>' );
+
+			$excerpt_input = this.$el.find( '#post_excerpt' );
 			
 			if ( $post_thumbnail_meta == null ) {
 				$post_thumbnail_meta = $( '#postimagediv' );

@@ -32,6 +32,7 @@
 					data : {
 						action : 'editpost',
 						excerpt : lastExcerpt,
+						post_ID : Scrivener_Data.post_id,
 						content : $( '.scrivener-content' ).html(),
 						post_title : $( '.scrivener-title' ).html(),
 						_wpnonce : Scrivener_Data.saveNonce,

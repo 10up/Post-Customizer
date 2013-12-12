@@ -81,6 +81,7 @@ class Scrivener {
 		<form id="customize-controls" class="wrap wp-full-overlay-sidebar">
 			<div id="customize-header-actions" class="wp-full-overlay-header">
 				<a href="javascript:void(0);" class="button button-primary save"><?php _e( 'Update', 'scrivener' ); ?></a>
+				<img class="update-spinner" src="<?php echo home_url( 'wp-admin/images/wpspin_light.gif' ); ?>" />
 				<a href="javascript:void(0);" class="back button close"><?php _e( 'Close', 'scrivener' ); ?></a>
 			</div>
 
@@ -175,7 +176,7 @@ class Scrivener {
 		wp_enqueue_script( 'scrivener-bootstrap', $base . '/js/main.js', array( 'scrivener' ) );
 
 		// include CSS
-		wp_enqueue_style( 'scrivener', $base . '/css/scrivener.css' );
+		wp_enqueue_style( 'scrivener', $base . '/css/scrivener.css', '0.2' );
 	}
 
 	/**

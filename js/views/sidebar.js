@@ -9,6 +9,7 @@
 	var $post_thumbnail_meta_position_parent = null;
 	var $accordion_section_content = $( '.accordion-section-content' );
 	var $excerpt_input = null;
+	var $spinner = null;
 	var save_deferred = null;
 
 	Scrivener.Views.Sidebar = Backbone.View.extend( {
@@ -23,6 +24,8 @@
 
 		initialize : function( attributes ) {
 			this.render( attributes.ajaxData );
+
+			console.log($spinner);
 
 			$( window ).on( 'message', _.bind( this.messageListener, this ) );
 		},
@@ -39,12 +42,14 @@
 
 				var $previewFrame = this.model.get( '$previewFrame' );
 
+				$spinner.fadeIn();
+
 				save_deferred = $.Deferred();
 
 				$previewFrame[0].contentWindow.postMessage( message, '*' );
 
 				$.when( save_deferred ).then( function() {
-					// remove spinner
+					$spinner.fadeOut();
 				} );
 			}
 		},
@@ -104,6 +109,8 @@
 			}
 
 			$post_thumbnail_meta.appendTo( $post_thumbnail_sidebar_container );
+
+			$spinner = this.$el.find( '.update-spinner' );
 		},
 
 		onCloseCustomizerClick : function( event ) {

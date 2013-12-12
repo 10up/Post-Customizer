@@ -28,3 +28,10 @@
 .scrivener-modal .scrivener-customizer-sidebar #postimagediv .handlediv {
 	display: none
 }
+
+.update-spinner {
+	float: right;
+	display: none;
+	margin-top: 14px;
+	margin-right: .4em;
+}

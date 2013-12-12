@@ -39,6 +39,11 @@
 					},
 					success : function() {
 						// post message back signaling finished save
+						var message = {
+							type : 'saveComplete',
+						};
+
+						window.parent.postMessage( message, '*' );
 					},
 				} );
 			}

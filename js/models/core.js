@@ -1,10 +1,10 @@
-( function( window, Backbone, $, _, Scrivener, undefined ) {
+( function( window, Backbone, $, _, Post_Customizer, undefined ) {
 
 	"use strict";
 	var document = window.document;
 	var customizerModel = null;
 
-	Scrivener.Models.Core = Backbone.Model.extend( {
+	Post_Customizer.Models.Core = Backbone.Model.extend( {
 
 		initialize : function( attributes ) {
 			this.set( 'localizedData', attributes.localizedData );
@@ -15,7 +15,7 @@
 				customizerModel.closeCustomizer();
 			}
 
-			customizerModel = new Scrivener.Models.Customizer( {
+			customizerModel = new Post_Customizer.Models.Customizer( {
 				localizedData : this.get( 'localizedData' )
 			} );
 			customizerModel.openCustomizer();
@@ -30,4 +30,4 @@
 
 	} );
 
-} )( window, Backbone, jQuery, _, Scrivener );
+} )( window, Backbone, jQuery, _, Post_Customizer );

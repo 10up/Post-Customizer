@@ -1,4 +1,4 @@
-( function( window, Backbone, $, _, Scrivener, undefined ) {
+( function( window, Backbone, $, _, Post_Customizer, undefined ) {
 
 	"use strict";
 	var document = window.document;
@@ -14,9 +14,9 @@
 	var $post_title = null;
 	var save_deferred = null;
 
-	Scrivener.Views.Sidebar = Backbone.View.extend( {
+	Post_Customizer.Views.Sidebar = Backbone.View.extend( {
 
-		className : 'scrivener-customizer-sidebar wp-full-overlay-sidebar-content',
+		className : 'post-customizer-sidebar wp-full-overlay-sidebar-content',
 
 		events : {
 			'click .button.close' : 'onCloseCustomizerClick',
@@ -67,8 +67,6 @@
 			if ( message.type == 'requestExcerpt' ) {
 				this.sendExcerpt();
 			} else if ( message.type == 'saveComplete' ) {
-				console.log(message);
-				console.log($post_title);
 				$post_title.html( message.newTitle );
 				save_deferred.resolve();
 			}
@@ -145,4 +143,4 @@
 
 	} );
 
-} )( window, Backbone, jQuery, _, Scrivener );
+} )( window, Backbone, jQuery, _, Post_Customizer );

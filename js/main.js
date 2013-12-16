@@ -1,17 +1,17 @@
-( function( Scrivener, window, $, Scrivener_Data ) {
+( function( Post_Customizer, window, $, Post_Customizer_Data ) {
 
 	"use strict";
 	var document = window.document;
 
 	$( document ).ready( function() {
 
-		Scrivener.Instance.coreModel = new Scrivener.Models.Core( {
-			localizedData : Scrivener_Data
+		Post_Customizer.Instance.coreModel = new Post_Customizer.Models.Core( {
+			localizedData : Post_Customizer_Data
 		} );
-		Scrivener.Instance.coreView = new Scrivener.Views.Core( {
-			model : Scrivener.Instance.coreModel
+		Post_Customizer.Instance.coreView = new Post_Customizer.Views.Core( {
+			model : Post_Customizer.Instance.coreModel
 		} );
 
 	} );
 
-} )( Scrivener, window, jQuery, Scrivener_Data );
+} )( Post_Customizer, window, jQuery, Post_Customizer_Data );

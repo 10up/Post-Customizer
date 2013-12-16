@@ -1,11 +1,11 @@
 <?php
 
-class Scrivener {
+class Post_Customizer {
 
 	private static $_instance;
 
 	/**
-	 * Setup singleton Scrivener instance.
+	 * Setup singleton Post_Customizer instance.
 	 *
 	 * @since 0.1.0
 	 */
@@ -14,16 +14,16 @@ class Scrivener {
 		add_action( 'admin_enqueue_scripts', array( $this, 'action_admin_enqueue_scripts' ) );
 		add_action( 'init',                  array( $this, 'trick_wp' ), 9 );
 		add_filter( 'admin_post_weiverp',    array( $this, 'is_this_real_life' ) );
-		add_action( 'wp_ajax_scrivener',     array( $this, 'process_ajax_request' ) );
+		add_action( 'wp_ajax_post-customizer',     array( $this, 'process_ajax_request' ) );
 	}
 
 	public function process_ajax_request() {
-		check_ajax_referer( 'scrivener' );
+		check_ajax_referer( 'post-customizer' );
 
-		if ( empty( $_POST['scrivener_action'] ) )
+		if ( empty( $_POST['post_customizer_action'] ) )
 			return;
 
-		if ( 'get_sidebar' == $_POST['scrivener_action'] ) {
+		if ( 'get_sidebar' == $_POST['post_customizer_action'] ) {
 
 			if ( empty( $_POST['post_id'] ) )
 				return;
@@ -31,7 +31,7 @@ class Scrivener {
 			$data = array(
 				'sidebarHTML' => $this->_render_sidebar_data( $_POST['post_id'] ),
 			);
-		} elseif ( 'save_field' == $_POST['scrivener_action'] && ! empty( $_POST['field'] ) && ! empty( $_POST['post_id'] ) ) {
+		} elseif ( 'save_field' == $_POST['post-customizer_action'] && ! empty( $_POST['field'] ) && ! empty( $_POST['post_id'] ) ) {
 			$data = array();
 			switch( $_POST['field'] ) {
 				case 'post_title':
@@ -80,13 +80,13 @@ class Scrivener {
 
 		<form id="customize-controls" class="wrap wp-full-overlay-sidebar">
 			<div id="customize-header-actions" class="wp-full-overlay-header">
-				<a href="javascript:void(0);" class="button button-primary save"><?php _e( 'Update', 'scrivener' ); ?></a>
+				<a href="javascript:void(0);" class="button button-primary save"><?php _e( 'Update', 'post-customizer' ); ?></a>
 				<img class="update-spinner" src="<?php echo home_url( 'wp-admin/images/wpspin_light.gif' ); ?>" />
-				<a href="javascript:void(0);" class="back button close"><?php _e( 'Close', 'scrivener' ); ?></a>
+				<a href="javascript:void(0);" class="back button close"><?php _e( 'Close', 'post-customizer' ); ?></a>
 			</div>
 
 			<div id="customize-title">
-				<?php _e( 'You are previewing', 'scrivener' );?>
+				<?php _e( 'You are previewing', 'post-customizer' );?>
 				<strong class="post-title"><?php the_title(); ?></strong>
 			</div>
 
@@ -94,18 +94,18 @@ class Scrivener {
 				<div id="customize-theme-controls">
 					<ul>
 						<li id="accordion-section-title_tagline" class="control-section accordion-section top">
-							<h3 class="accordion-section-title" tabindex="0"><?php _e( 'Excerpt', 'scrivener' ); ?></h3>
+							<h3 class="accordion-section-title" tabindex="0"><?php _e( 'Excerpt', 'post-customizer' ); ?></h3>
 							<ul class="accordion-section-content">
 								<li id="customize-control-excerpt" class="customize-control customize-control-textarea">
 									<label>
-										<span class="customize-control-excerpt"><?php _e( 'Excerpt:', 'scrivener' ); ?></span>
+										<span class="customize-control-excerpt"><?php _e( 'Excerpt:', 'post-customizer' ); ?></span>
 										<textarea name="post_excerpt" id="post_excerpt"><?php echo get_the_excerpt(); ?></textarea>
 									</label>
 								</li>
 							</ul>
 						</li>
 						<li id="accordion-section-colors" class="control-section accordion-section">
-							<h3 class="accordion-section-title" tabindex="0"><?php _e( 'Post Thumbnail', 'scrivener' ); ?></h3>
+							<h3 class="accordion-section-title" tabindex="0"><?php _e( 'Post Thumbnail', 'post-customizer' ); ?></h3>
 							<ul class="accordion-section-content">
 								<li id="customize-control-thumbnail" class="customize-control customize-control-thumbnail">
 									<div class="post-thumbnail-container"></div>
@@ -117,9 +117,9 @@ class Scrivener {
 			</div>
 
 			<div id="customize-footer-actions" class="wp-full-overlay-footer">
-				<a href="#" class="collapse-sidebar button-secondary" title="<?php _e( 'Collapse Sidebar', 'scrivener' ); ?>">
+				<a href="#" class="collapse-sidebar button-secondary" title="<?php _e( 'Collapse Sidebar', 'post-customizer' ); ?>">
 					<span class="collapse-sidebar-arrow"></span>
-					<span class="collapse-sidebar-label"><?php _e( 'Collapse', 'scrivener' ); ?></span>
+					<span class="collapse-sidebar-label"><?php _e( 'Collapse', 'post-customizer' ); ?></span>
 				</a>
 			</div>
 		</form>
@@ -148,30 +148,30 @@ class Scrivener {
 		wp_enqueue_script( 'customize-controls' );
 
 		// include the base component
-		wp_enqueue_script( 'scrivener', $base . '/js/app.js', array( 'backbone' ), '0.1', true );
+		wp_enqueue_script( 'post-customizer', $base . '/js/app.js', array( 'backbone' ), '0.1', true );
 
-		$scrivener_data = array(
+		$post_customizer_data = array(
 			'style_url' => admin_url( 'css/customize-controls.css' ),
 			'post_id' => get_the_ID(),
 			'admin_url' => admin_url(),
 			'ajaxURL' => admin_url( 'admin-ajax.php' ),
-			'ajaxNonce' => wp_create_nonce( 'scrivener' ),
+			'ajaxNonce' => wp_create_nonce( 'post-customizer' ),
 		);
-		wp_localize_script( 'scrivener', 'Scrivener_Data', $scrivener_data );
+		wp_localize_script( 'post-customizer', 'Post_Customizer_Data', $post_customizer_data );
 
 		// include our dependencies
-		wp_enqueue_script( 'scrivener-models-core', $base . '/js/models/core.js', array( 'scrivener' ) );
-		wp_enqueue_script( 'scrivener-models-customizer', $base . '/js/models/customizer.js', array( 'scrivener' ) );
-		wp_enqueue_script( 'scrivener-views-core', $base . '/js/views/core.js', array( 'scrivener-models-core' ) );
-		wp_enqueue_script( 'scrivener-views-modal', $base . '/js/views/modal.js', array( 'scrivener-models-customizer' ) );
-		wp_enqueue_script( 'scrivener-views-sidebar', $base . '/js/views/sidebar.js', array( 'scrivener-models-customizer' ), '1.0.1' );
-		wp_enqueue_script( 'scrivener-views-frame-preview', $base . '/js/views/frame-preview.js', array( 'scrivener-models-customizer' ) );
+		wp_enqueue_script( 'post-customizer-models-core', $base . '/js/models/core.js', array( 'post-customizer' ) );
+		wp_enqueue_script( 'post-customizer-models-customizer', $base . '/js/models/customizer.js', array( 'post-customizer' ) );
+		wp_enqueue_script( 'post-customizer-views-core', $base . '/js/views/core.js', array( 'post-customizer-models-core' ) );
+		wp_enqueue_script( 'post-customizer-views-modal', $base . '/js/views/modal.js', array( 'post-customizer-models-customizer' ) );
+		wp_enqueue_script( 'post-customizer-views-sidebar', $base . '/js/views/sidebar.js', array( 'post-customizer-models-customizer' ), '1.0.1' );
+		wp_enqueue_script( 'post-customizer-views-frame-preview', $base . '/js/views/frame-preview.js', array( 'post-customizer-models-customizer' ) );
 
 		// include bootstrap
-		wp_enqueue_script( 'scrivener-bootstrap', $base . '/js/main.js', array( 'scrivener' ) );
+		wp_enqueue_script( 'post-customizer-bootstrap', $base . '/js/main.js', array( 'post-customizer' ) );
 
 		// include CSS
-		wp_enqueue_style( 'scrivener', $base . '/css/scrivener.css', '0.2' );
+		wp_enqueue_style( 'post-customizer', $base . '/css/post-customizer.css', '0.2' );
 	}
 
 	/**
@@ -203,7 +203,7 @@ class Scrivener {
 	public function trick_autosave() {
 	?>
 		<script type="text/javascript">
-		var pagenow = 'scrivener';
+		var pagenow = 'post-customizer';
 		</script>
 	<?php
 	}
@@ -230,18 +230,18 @@ class Scrivener {
 		wp_enqueue_script( 'autosave' );
 
 		wp_enqueue_script( 'ckeditor',        $base . '/js/ckeditor/ckeditor.js',         array(), '10.0.0', true );
-		wp_enqueue_script( 'scrivener-frame', $base . '/js/frame.js',                     array( 'ckeditor', 'jquery' ), '0.1.0', true );
-		wp_enqueue_style( 'scrivener',        $base . '/css/scrivener-frame-preview.css', array(), '0.2',    false );
+		wp_enqueue_script( 'post-customizer-frame', $base . '/js/frame.js',                     array( 'ckeditor', 'jquery' ), '0.1.0', true );
+		wp_enqueue_style( 'post-customizer',        $base . '/css/post-customizer-frame-preview.css', array(), '0.2',    false );
 
 		$data = array(
 			'post_id' => get_the_ID(),
-			'ajaxNonce' => wp_create_nonce( 'scrivener' ),
+			'ajaxNonce' => wp_create_nonce( 'post-customizer' ),
 			'saveNonce' => wp_create_nonce( 'update-post_' . get_the_ID() ),
 			'autosaveNonce' => wp_create_nonce( 'autosave' ),
 		);
-		wp_localize_script( 'scrivener-frame', 'Scrivener_Data', $data );
+		wp_localize_script( 'post-customizer-frame', 'Post_Customizer_Data', $data );
 
-		// Wrap the title and content in Scrivener ID's
+		// Wrap the title and content in Post_Customizer ID's
 		add_filter( 'the_title',   array( $this, 'filter_the_title'   ), 10, 2 );
 		add_filter( 'the_content', array( $this, 'filter_the_content' ) );
 
@@ -254,7 +254,7 @@ class Scrivener {
 	}
 
 	/**
-	 * Wrap the_title in a Scrivener div
+	 * Wrap the_title in a Post_Customizer div
 	 *
 	 * @since 0.1.0
 	 *
@@ -269,11 +269,11 @@ class Scrivener {
 			return $title;
 		}
 
-		return '<div data-wp-field="post_title" class="scrivener-title scrivener-focused-element" contenteditable="true">' . $title . '</div>';
+		return '<div data-wp-field="post_title" class="post-customizer-title post-customizer-focused-element" contenteditable="true">' . $title . '</div>';
 	}
 
 	/**
-	 * Wrap the_content in a Scrivener div
+	 * Wrap the_content in a Post_Customizer div
 	 *
 	 * @since 0.1.0
 	 *
@@ -287,7 +287,7 @@ class Scrivener {
 			return $content;
 		}
 
-		return '<div data-wp-field="post_content" class="scrivener-content scrivener-focused-element" contenteditable="true">' . $content . '</div>';
+		return '<div data-wp-field="post_content" class="post-customizer-content post-customizer-focused-element" contenteditable="true">' . $content . '</div>';
 	}
 
 	/**
@@ -295,11 +295,11 @@ class Scrivener {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @return Scrivener instance.
+	 * @return Post_Customizer instance.
 	 */
 	public static function init() {
 		if ( ! isset( self::$_instance ) ) {
-			self::$_instance = new Scrivener;
+			self::$_instance = new Post_Customizer;
 		}
 
 		return self::$_instance;
@@ -329,6 +329,6 @@ class Scrivener {
 		);
 	}
 
-} // Scrivener
+} // Post_Customizer
 
-Scrivener::init();
+Post_Customizer::init();

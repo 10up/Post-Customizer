@@ -1,9 +1,9 @@
-( function( window, Backbone, $, _, Scrivener, undefined ) {
+( function( window, Backbone, $, _, Post_Customizer, undefined ) {
 
 	"use strict";
 	var document = window.document;
 
-	Scrivener.Views.Core = Backbone.View.extend( {
+	Post_Customizer.Views.Core = Backbone.View.extend( {
 
 		el : function() {
 			return document.querySelector( '#preview-action a' );
@@ -11,10 +11,6 @@
 
 		events : {
 			'click' : 'onPreviewButtonClick'
-		},
-
-		initialize : function() {
-			//
 		},
 
 		onPreviewButtonClick : function( event ) {
@@ -26,4 +22,4 @@
 
 	} );
 
-} )( window, Backbone, jQuery, _, Scrivener );
+} )( window, Backbone, jQuery, _, Post_Customizer );

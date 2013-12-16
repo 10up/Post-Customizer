@@ -1,12 +1,12 @@
 {
-	"name"       : "10up/scrivener",
+	"name"       : "10up/post-customizer",
 	"description": "!magic",
 	"license"    : "MIT",
 	"require"    : {},
 	"autoload"   : {
 		"psr-0": {
 			"Customizer\\": "classes/",
-			"Scrivener\\" : "classes/"
+			"Post_Customizer\\" : "classes/"
 		}
 	}
 }

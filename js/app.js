@@ -3,10 +3,10 @@
 	"use strict";
 	var document = window.document;
 
-	function Scrivener() {
+	function Post_Customizer() {
 
 		/**
-		 * Container for any Views that Scrivener will use
+		 * Container for any Views that Post_Customizer will use
 		 *
 		 * @type {{}}
 		 * @private
@@ -14,7 +14,7 @@
 		var _Collections = {};
 
 		/**
-		 * Container for any Models that Scrivener will use
+		 * Container for any Models that Post_Customizer will use
 		 *
 		 * @type {{}}
 		 * @private
@@ -22,7 +22,7 @@
 		var _Models = {};
 
 		/**
-		 * Container for any Routers that Scrivener will use
+		 * Container for any Routers that Post_Customizer will use
 		 *
 		 * @type {{}}
 		 * @private
@@ -30,7 +30,7 @@
 		var _Routers = {};
 
 		/**
-		 * Container for any Views that Scrivener will use
+		 * Container for any Views that Post_Customizer will use
 		 *
 		 * @type {{}}
 		 * @private
@@ -57,6 +57,6 @@
 		};
 	}
 
-	window.Scrivener = new Scrivener();
+	window.Post_Customizer = new Post_Customizer();
 
 } )( window, jQuery, _, Backbone );

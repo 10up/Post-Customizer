@@ -90,15 +90,15 @@ class Post_Customizer {
 	 * @access protected
 	 * @since 0.1.0
 	 *
-	 * @param int $post_id
-	 * @return string
+	 * @param int $post_id Post ID.
+	 * @return string|null String of HTML markup or null absent a post object.
 	 */
 	protected function _render_sidebar_data( $post_id ) {
 
-		// Look for the post
+		// Look for the post.
 		$_post = get_post( $post_id );
 
-		// Bail if no post
+		// Bail if no post.
 		if ( empty( $_post ) )
 			return;
 
@@ -109,7 +109,7 @@ class Post_Customizer {
 		// Setup the global post data
 		setup_postdata( $_post );
 
-		// Start the output buffer for the sidebar
+		// Start the output buffer for the sidebar.
 		ob_start(); ?>
 
 		<form id="customize-controls" class="wrap wp-full-overlay-sidebar">
@@ -159,7 +159,6 @@ class Post_Customizer {
 		</form>
 
 		<?php
-
 		$html = ob_get_clean();
 
 		return str_replace( array( "\n", "\t", "\r" ), '', $html );

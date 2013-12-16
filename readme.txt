@@ -1,5 +1,5 @@
 === Post Customizer ===
-Contributors: 10up, tlovett1, jjj, carldanley, johnpbloch
+Contributors: 10up, tlovett1, johnjamesjacoby, carldanley, johnpbloch, DrewAPicture
 Tags: post customizer, live post editor, customizer, post preview customizer, post editor preview
 Requires at least: 3.1
 Tested up to: 3.8

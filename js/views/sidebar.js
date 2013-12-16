@@ -9,6 +9,7 @@
 	var $post_thumbnail_meta_position_parent = null;
 	var $accordion_section_content = $( '.accordion-section-content' );
 	var $excerpt_input = null;
+	var $overlay = null;
 	var $spinner = null;
 	var save_deferred = null;
 
@@ -20,14 +21,19 @@
 			'click .button.close' : 'onCloseCustomizerClick',
 			'click .button.save' : 'onUpdateClick',
 			'click .accordion-section-title' : 'toggleAccordionSection',
+			'click .collapse-sidebar' : 'toggleSidebar'
 		},
 
 		initialize : function( attributes ) {
 			this.render( attributes.ajaxData );
 
-			console.log($spinner);
+			$overlay = $( '.wp-full-overlay' );
 
 			$( window ).on( 'message', _.bind( this.messageListener, this ) );
+		},
+
+		toggleSidebar : function() {
+			$overlay.toggleClass( 'collapsed' ).toggleClass( 'expanded' );
 		},
 
 		onUpdateClick : function( event ) {

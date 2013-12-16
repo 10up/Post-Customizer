@@ -42,6 +42,7 @@
 						// post message back signaling finished save
 						var message = {
 							type : 'saveComplete',
+							newTitle : $( '.scrivener-title' ).html(),
 						};
 
 						window.parent.postMessage( message, '*' );

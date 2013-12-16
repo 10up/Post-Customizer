@@ -11,6 +11,7 @@
 	var $excerpt_input = null;
 	var $overlay = null;
 	var $spinner = null;
+	var $post_title = null;
 	var save_deferred = null;
 
 	Scrivener.Views.Sidebar = Backbone.View.extend( {
@@ -66,6 +67,9 @@
 			if ( message.type == 'requestExcerpt' ) {
 				this.sendExcerpt();
 			} else if ( message.type == 'saveComplete' ) {
+				console.log(message);
+				console.log($post_title);
+				$post_title.html( message.newTitle );
 				save_deferred.resolve();
 			}
 		},
@@ -117,6 +121,7 @@
 			$post_thumbnail_meta.appendTo( $post_thumbnail_sidebar_container );
 
 			$spinner = this.$el.find( '.update-spinner' );
+			$post_title = this.$el.find( '#customize-title .post-title' );
 		},
 
 		onCloseCustomizerClick : function( event ) {

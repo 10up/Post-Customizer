@@ -12,4 +12,4 @@
 /**
  * Load the Post_Customizer class.
  */
-require_once( __DIR__ . '/classes/class-post-customizer.php' );
+require_once( dirname( __FILE__ ) . '/classes/class-post-customizer.php' );

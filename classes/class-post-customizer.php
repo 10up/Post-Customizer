@@ -2,6 +2,10 @@
 
 class Post_Customizer {
 
+	/**
+	 * @access private
+	 * @var Post_Customizer
+	 */
 	private static $_instance;
 
 	/**
@@ -10,13 +14,35 @@ class Post_Customizer {
 	 * @since 0.1.0
 	 */
 	private function __construct() {
-		add_filter( 'preview_post_link',     array( $this, 'filter_preview_post_link' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'action_admin_enqueue_scripts' ) );
-		add_action( 'init',                  array( $this, 'trick_wp' ), 9 );
-		add_filter( 'admin_post_weiverp',    array( $this, 'is_this_real_life' ) );
-		add_action( 'wp_ajax_post-customizer',     array( $this, 'process_ajax_request' ) );
+		add_action( 'wp_ajax_post-customizer', array( $this, 'process_ajax_request' ) );
+		add_action( 'admin_enqueue_scripts',   array( $this, 'action_admin_enqueue_scripts' ) );
+		add_action( 'init',                    array( $this, 'trick_wp' ), 9 );
+
+		add_filter( 'preview_post_link',  array( $this, 'filter_preview_post_link' ) );
+		add_filter( 'admin_post_weiverp', array( $this, 'is_this_real_life' ) );
 	}
 
+	/**
+	 * Initialize class and return an instance of it.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return Post_Customizer instance.
+	 */
+	public static function init() {
+		if ( ! isset( self::$_instance ) ) {
+			self::$_instance = new Post_Customizer;
+		}
+
+		return self::$_instance;
+	}
+
+	/**
+	 * Handle Post Customizer AJAX requests
+	 *
+	 * @access public
+	 * @since 0.1.0
+	 */
 	public function process_ajax_request() {
 		check_ajax_referer( 'post-customizer' );
 
@@ -54,6 +80,7 @@ class Post_Customizer {
 	/**
 	 * Render the sidebar for a given post.
 	 *
+	 * @access protected
 	 * @since 0.1.0
 	 *
 	 * @param int $post_id
@@ -134,6 +161,7 @@ class Post_Customizer {
 	/**
 	 * Enqueue admin scripts for plugin.
 	 *
+	 * @access public
 	 * @since 0.1.0
 	 *
 	 * @param string $hook The hook name.
@@ -144,22 +172,22 @@ class Post_Customizer {
 
 		$base = plugins_url( '', dirname( __FILE__ ) );
 
-		// Customizer controls
+		// Customizer controls.
 		wp_enqueue_script( 'customize-controls' );
 
-		// include the base component
+		// Include the base component.
 		wp_enqueue_script( 'post-customizer', $base . '/js/app.js', array( 'backbone' ), '0.1', true );
 
 		$post_customizer_data = array(
 			'style_url' => admin_url( 'css/customize-controls.css' ),
-			'post_id' => get_the_ID(),
+			'post_id'   => get_the_ID(),
 			'admin_url' => admin_url(),
-			'ajaxURL' => admin_url( 'admin-ajax.php' ),
+			'ajaxURL'   => admin_url( 'admin-ajax.php' ),
 			'ajaxNonce' => wp_create_nonce( 'post-customizer' ),
 		);
 		wp_localize_script( 'post-customizer', 'Post_Customizer_Data', $post_customizer_data );
 
-		// include our dependencies
+		// Include our dependencies.
 		wp_enqueue_script( 'post-customizer-models-core', $base . '/js/models/core.js', array( 'post-customizer' ) );
 		wp_enqueue_script( 'post-customizer-models-customizer', $base . '/js/models/customizer.js', array( 'post-customizer' ) );
 		wp_enqueue_script( 'post-customizer-views-core', $base . '/js/views/core.js', array( 'post-customizer-models-core' ) );
@@ -167,19 +195,20 @@ class Post_Customizer {
 		wp_enqueue_script( 'post-customizer-views-sidebar', $base . '/js/views/sidebar.js', array( 'post-customizer-models-customizer' ), '1.0.1' );
 		wp_enqueue_script( 'post-customizer-views-frame-preview', $base . '/js/views/frame-preview.js', array( 'post-customizer-models-customizer' ) );
 
-		// include bootstrap
+		// Include bootstrap.
 		wp_enqueue_script( 'post-customizer-bootstrap', $base . '/js/main.js', array( 'post-customizer' ) );
 
-		// include CSS
+		// Include CSS.
 		wp_enqueue_style( 'post-customizer', $base . '/css/post-customizer.css', '0.2' );
 	}
 
 	/**
 	 * Filter preview post link.
 	 *
+	 * @access public
 	 * @since 0.1.0
 	 *
-	 * @param string $link Preview link.
+	 * @param string $link Optional. Preview link. Default empty.
 	 * @return string The filtered preview link.
 	 */
 	public function filter_preview_post_link( $link = '' ) {
@@ -188,9 +217,12 @@ class Post_Customizer {
 	}
 
 	/**
-	 * Trick WP into thinking this is a preview
+	 * Trick WP into thinking this is a preview.
 	 *
-	 * LOL
+	 * LOL.
+	 *
+	 * @access public
+	 * @since 0.1.0
 	 */
 	public function trick_wp() {
 		if ( is_admin() && ! empty( $_GET['action'] ) && $_GET['action'] === 'weiverp' ) {
@@ -200,6 +232,12 @@ class Post_Customizer {
 		}
 	}
 
+	/**
+	 * Set pagenow to trick autosave.
+	 *
+	 * @access public
+	 * @since 0.1.0
+	 */
 	public function trick_autosave() {
 	?>
 		<script type="text/javascript">
@@ -209,18 +247,22 @@ class Post_Customizer {
 	}
 
 	/**
-	 * Admin post handler to display the preview
+	 * Admin post handler to display the preview.
 	 *
 	 * Is this real life?
 	 *
+	 * @access public
 	 * @since 0.1.0
 	 */
 	public function is_this_real_life() {
 		define( 'WP_USE_THEMES', true );
 		define( 'IFRAME_REQUEST', true );
 		wp();
+
+		// Disable the default admin bar callback.
 		remove_action( 'wp_head', '_admin_bar_bump_cb' );
 
+		// Set the pagenow value to trick autosave.
 		add_action( 'wp_head', array( $this, 'trick_autosave' ) );
 
 		$base = plugins_url( '', dirname( __FILE__ ) );
@@ -229,14 +271,15 @@ class Post_Customizer {
 		wp_enqueue_script( 'post' );
 		wp_enqueue_script( 'autosave' );
 
-		wp_enqueue_script( 'ckeditor',        $base . '/js/ckeditor/ckeditor.js',         array(), '10.0.0', true );
-		wp_enqueue_script( 'post-customizer-frame', $base . '/js/frame.js',                     array( 'ckeditor', 'jquery' ), '0.1.0', true );
-		wp_enqueue_style( 'post-customizer',        $base . '/css/post-customizer-frame-preview.css', array(), '0.2',    false );
+		wp_enqueue_script( 'ckeditor', $base . '/js/ckeditor/ckeditor.js', array(), '10.0.0', true );
+		wp_enqueue_script( 'post-customizer-frame', $base . '/js/frame.js', array( 'ckeditor', 'jquery' ), '0.1.0', true );
+		wp_enqueue_style( 'post-customizer', $base . '/css/post-customizer-frame-preview.css', array(), '0.2',    false );
 
+		// Package data for JS.
 		$data = array(
-			'post_id' => get_the_ID(),
-			'ajaxNonce' => wp_create_nonce( 'post-customizer' ),
-			'saveNonce' => wp_create_nonce( 'update-post_' . get_the_ID() ),
+			'post_id'       => get_the_ID(),
+			'ajaxNonce'     => wp_create_nonce( 'post-customizer' ),
+			'saveNonce'     => wp_create_nonce( 'update-post_' . get_the_ID() ),
 			'autosaveNonce' => wp_create_nonce( 'autosave' ),
 		);
 		wp_localize_script( 'post-customizer-frame', 'Post_Customizer_Data', $data );
@@ -254,12 +297,13 @@ class Post_Customizer {
 	}
 
 	/**
-	 * Wrap the_title in a Post_Customizer div
+	 * Wrap the_title in a Post_Customizer div.
 	 *
+	 * @access public
 	 * @since 0.1.0
 	 *
-	 * @param string $title
-	 * @param int    $id
+	 * @param string $title The title.
+	 * @param int    $id    Current post ID.
 	 *
 	 * @return string $title wrapped in a div
 	 */
@@ -275,14 +319,15 @@ class Post_Customizer {
 	/**
 	 * Wrap the_content in a Post_Customizer div
 	 *
+	 * @access public
 	 * @since 0.1.0
 	 *
 	 * @param string $content
 	 *
-	 * @return string $content wrapped in a div
+	 * @return string $content Optional. Content wrapped in a div. Default empty.
 	 */
 	public function filter_the_content( $content = '' ) {
-		// Bail if not in the main query loop
+		// Bail if not in the main query loop.
 		if ( ! $this->okay_to_add_editor( get_the_ID() ) ) {
 			return $content;
 		}
@@ -291,34 +336,15 @@ class Post_Customizer {
 	}
 
 	/**
-	 * Initialize class and return an instance of it.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @return Post_Customizer instance.
-	 */
-	public static function init() {
-		if ( ! isset( self::$_instance ) ) {
-			self::$_instance = new Post_Customizer;
-		}
-
-		return self::$_instance;
-	}
-
-	/**
 	 * Checks if we're in the loop and currently filtering values from the
-	 * correct post
+	 * correct post.
 	 *
-	 * @uses  in_the_loop()
-	 * @uses  COMMENTS_TEMPLATE
-	 * @uses  get_the_ID()
-	 * @uses  get_queried_object_id()
-	 *
+	 * @access protected
 	 * @since 0.1.0
 	 *
-	 * @param int $id The current post id
+	 * @param int $id The current post ID.
 	 *
-	 * @return bool Whether it's okay to add the editor wrapper on a filter
+	 * @return bool Whether it's okay to add the editor wrapper on a filter.
 	 */
 	protected function okay_to_add_editor( $id = 0 ) {
 		return (

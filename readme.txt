@@ -11,6 +11,8 @@ Customize your posts from within the post preview screen.
 
 A WordPress plugin to enhance the post editor preview. Post Customizer lets you edit your post from within the post preview screen just like the Theme Customizer.
 
+[Fork the plugin on GitHub.](https://github.com/10up/Post-Customizer)
+
 == Installation ==
 
 Extract the zip file and just drop the contents in the wp-content/plugins/ directory of your WordPress installation and then activate the plugin from Plugins page.

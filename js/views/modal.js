@@ -1,12 +1,12 @@
-( function( window, Backbone, $, _, Scrivener, undefined ) {
+( function( window, Backbone, $, _, Post_Customizer, undefined ) {
 
 	"use strict";
 	var document = window.document;
 	var $body = $( document.body );
 
-	Scrivener.Views.Modal = Backbone.View.extend( {
+	Post_Customizer.Views.Modal = Backbone.View.extend( {
 
-		className : 'scrivener-modal wp-full-overlay expanded',
+		className : 'post-customizer-modal wp-full-overlay expanded',
 
 		initialize : function() {
 			this.render();
@@ -24,4 +24,4 @@
 
 	} );
 
-} )( window, Backbone, jQuery, _, Scrivener );
+} )( window, Backbone, jQuery, _, Post_Customizer );

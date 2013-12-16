@@ -1,4 +1,4 @@
-( function( window, Backbone, $, _, Scrivener, undefined ) {
+( function( window, Backbone, $, _, Post_Customizer, undefined ) {
 
 	"use strict";
 	var document = window.document;
@@ -10,7 +10,7 @@
 	var XHR = null;
 	var styleSheetObject = null;
 
-	Scrivener.Models.Customizer = Backbone.Model.extend( {
+	Post_Customizer.Models.Customizer = Backbone.Model.extend( {
 
 		initialize : function( attributes ) {
 			this.set( 'localizedData', attributes.localizedData );
@@ -44,8 +44,8 @@
 				dataType : 'JSON',
 				data : {
 					post_id: data.post_id,
-					action : 'scrivener',
-					scrivener_action: 'get_sidebar',
+					action : 'post-customizer',
+					post_customizer_action: 'get_sidebar',
 					_ajax_nonce : data.ajaxNonce
 				},
 				success : $.proxy( this.renderCustomizer, this )
@@ -72,15 +72,15 @@
 		},
 
 		renderCustomizer : function( ajaxData ) {
-			var modal = new Scrivener.Views.Modal( {
+			var modal = new Post_Customizer.Views.Modal( {
 				model : this,
 				ajaxData : ajaxData
 			} );
-			var framePreview = new Scrivener.Views.FramePreview( {
+			var framePreview = new Post_Customizer.Views.FramePreview( {
 				model : this,
 				ajaxData : ajaxData
 			} );
-			var sidebar = new Scrivener.Views.Sidebar( {
+			var sidebar = new Post_Customizer.Views.Sidebar( {
 				model : this,
 				ajaxData : ajaxData
 			} );
@@ -137,8 +137,12 @@
 			} else {
 				document.getElementById( 'content').value = html;
 			}
+		},
+
+		changePostTitle : function( newTitle ) {
+			currentModalView.sidebar.changePostTitle( newTitle );
 		}
 
 	} );
 
-} )( window, Backbone, jQuery, _, Scrivener );
+} )( window, Backbone, jQuery, _, Post_Customizer );

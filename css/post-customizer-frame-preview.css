@@ -1,0 +1,21 @@
+.post-customizer-frame-preview-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	opacity: .8;
+	width: 100%;
+	z-index: 1;
+	cursor: not-allowed;
+	background-color: #fff;
+}
+.post-customizer-focused-element {
+	z-index: 9001;
+	cursor: text;
+}
+.post-customizer-focused-element:hover {
+	outline: rgba(240, 240, 240, 0.5) solid 5px;
+}
+.post-customizer-focused-element:focus {
+	outline: transparent solid 5px;
+}

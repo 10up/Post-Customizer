@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * Class Post_Customizer
+ *
+ * Singleton class that enhances the post editor preview
+ * in various ways.
+ *
+ * @since 0.1.0
+ */
 class Post_Customizer {
 
 	/**

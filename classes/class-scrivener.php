@@ -85,17 +85,12 @@ class Scrivener {
 				<a href="javascript:void(0);" class="back button close"><?php _e( 'Close', 'scrivener' ); ?></a>
 			</div>
 
-			<div class="wp-full-overlay-sidebar-content accordion-container" tabindex="-1">
+			<div id="customize-title">
+				<?php _e( 'You are previewing', 'scrivener' );?>
+				<strong class="post-title"><?php the_title(); ?></strong>
+			</div>
 
-				<div id="customize-info" class="accordion-section">
-					<div class="accordion-section-title" aria-label="<?php _e( 'Post Preview', 'scrivener' );?>" tabindex="0">
-						<span class="preview-notice">
-							<?php _e( 'You are previewing', 'scrivener' );?>
-							<strong class="theme-name"><?php the_title(); ?></strong>
-						</span>
-					</div>
-				</div>
-
+			<div class="wp-full-overlay-sidebar-content accordion-container" id="customize-info" tabindex="-1">
 				<div id="customize-theme-controls">
 					<ul>
 						<li id="accordion-section-title_tagline" class="control-section accordion-section top">

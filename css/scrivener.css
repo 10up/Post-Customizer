@@ -35,3 +35,32 @@
 	margin-top: 14px;
 	margin-right: .4em;
 }
+
+#customize-title {
+	position: static;
+	border-left: none;
+	border-right: none;
+	padding: 10px 10px 11px 14px;
+	background: #fff;
+	height: auto;
+	width: 100%;
+	border-top: 1px solid #ddd;
+}
+
+#customize-header-actions {
+	position: static;
+}
+
+#customize-title .post-title {
+	font-size: 20px;
+	font-weight: 200;
+	line-height: 24px;
+	display: block;
+}
+
+#customize-info {
+	position: static;
+	top: 115px;
+	bottom: 45px;
+}
+

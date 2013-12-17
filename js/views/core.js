@@ -5,9 +5,7 @@
 
 	Post_Customizer.Views.Core = Backbone.View.extend( {
 
-		el : function() {
-			return document.querySelector( '#preview-action a' );
-		},
+		el : '#preview-action a',
 
 		events : {
 			'click' : 'onPreviewButtonClick'

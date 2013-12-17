@@ -14,7 +14,13 @@
 
 		registerAutosaveInterval();
 		registerListener();
+
+		CKEDITOR.on( 'instanceReady', preventLinkedEditor );
 	};
+
+	function preventLinkedEditor() {
+		$( '.cke_editable' ).parents( 'a' ).attr( 'href', 'javascript:void(0);' );
+	}
 
 	function registerListener() {
 		$( window ).on( 'message', function( event ) {

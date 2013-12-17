@@ -239,17 +239,20 @@ class Post_Customizer {
 	}
 
 	/**
-	 * Set pagenow to trick autosave.
+	 * Ensure proper JS globals.
 	 *
+	 * @since 0.1.2
 	 * @access public
-	 * @since 0.1.0
 	 */
-	public function trick_autosave() {
-	?>
+	public function ensure_globals() { ?>
 		<script type="text/javascript">
+		//<![CDATA[
+		window.wp = window.wp || {};
+		var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ); ?>';
 		var pagenow = 'post-customizer';
+		//]]>
 		</script>
-	<?php
+		<?php
 	}
 
 	/**
@@ -269,7 +272,7 @@ class Post_Customizer {
 		remove_action( 'wp_head', '_admin_bar_bump_cb' );
 
 		// Set the pagenow value to trick autosave.
-		add_action( 'wp_head', array( $this, 'trick_autosave' ) );
+		add_action( 'wp_head', array( $this, 'ensure_globals' ), 1 );
 
 		$base = plugins_url( '', dirname( __FILE__ ) );
 

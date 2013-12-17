@@ -1,9 +1,9 @@
 === Post Customizer ===
 Contributors: 10up, tlovett1, johnjamesjacoby, carldanley, johnpbloch, DrewAPicture
 Tags: post customizer, live post editor, customizer, post preview customizer, post editor preview
-Requires at least: 3.1
+Requires at least: 3.8
 Tested up to: 3.8
-Stable tag: 0.1.1
+Stable tag: 0.1.2
 
 Customize your posts from within the post preview screen.
 
@@ -18,6 +18,10 @@ A WordPress plugin to enhance the post editor preview. Post Customizer lets you 
 Extract the zip file and just drop the contents in the wp-content/plugins/ directory of your WordPress installation and then activate the plugin from Plugins page.
 
 == Changelog ==
+
+= 0.1.2 (Dec. 17, 2013) =
+* Ensure proper JS globals
+* Fix backbone el bug
 
 = 0.1.1 (Dec. 16, 2013) =
 * Update comments and readme

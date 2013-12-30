@@ -3,7 +3,7 @@
  * Plugin Name: Post Customizer
  * Plugin URI: http://10up.com
  * Description: A WordPress plugin to enhance the post editor preview.
- * Version: 0.1.3
+ * Version: 0.2.0
  * Author: 10up
  * Author URI: http://10up.com
  * License: GPLv2 or later

@@ -119,21 +119,25 @@
 			this.$el.html( '<div class="content">' + ajaxData.sidebarHTML + '</div>' );
 
 			$excerpt_input = this.$el.find( '#post_excerpt' );
+
+			var data = this.model.get( 'localizedData' );
 			
-			if ( $post_thumbnail_meta == null ) {
-				$post_thumbnail_meta = $( '#postimagediv' );
-			}
+			if ( parseInt( data.post_thumbnails_enabled ) ) {
+				if ( $post_thumbnail_meta == null ) {
+					$post_thumbnail_meta = $( '#postimagediv' );
+				}
 
-			$post_thumbnail_meta_position = $post_thumbnail_meta.prev();
-			if ( ! $post_thumbnail_meta_position.length ) {
-				$post_thumbnail_meta_position_parent = $post_thumbnail_meta.parent();
-			}
+				$post_thumbnail_meta_position = $post_thumbnail_meta.prev();
+				if ( ! $post_thumbnail_meta_position.length ) {
+					$post_thumbnail_meta_position_parent = $post_thumbnail_meta.parent();
+				}
 
-			if ( $post_thumbnail_sidebar_container == null ) {
-				$post_thumbnail_sidebar_container = this.$el.find( '.post-thumbnail-container' )
-			}
+				if ( $post_thumbnail_sidebar_container == null ) {
+					$post_thumbnail_sidebar_container = this.$el.find( '.post-thumbnail-container' )
+				}
 
-			$post_thumbnail_meta.appendTo( $post_thumbnail_sidebar_container );
+				$post_thumbnail_meta.appendTo( $post_thumbnail_sidebar_container );
+			}
 
 			$spinner = this.$el.find( '.update-spinner' );
 			$post_title = this.$el.find( '#customize-title .post-title' );
@@ -148,12 +152,17 @@
 
 		close : function() {
 			this.remove();
-			if ( $post_thumbnail_meta_position_parent ) {
-				$post_thumbnail_meta_position_parent.prepend( $post_thumbnail_meta );
-				$post_thumbnail_meta_position_parent = null;
-			} else {
-				$post_thumbnail_meta_position.after( $post_thumbnail_meta );
-				$post_thumbnail_meta_position = null;
+
+			var data = this.model.get( 'localizedData' );
+			
+			if ( parseInt( data.post_thumbnails_enabled ) ) {
+				if ( $post_thumbnail_meta_position_parent ) {
+					$post_thumbnail_meta_position_parent.prepend( $post_thumbnail_meta );
+					$post_thumbnail_meta_position_parent = null;
+				} else {
+					$post_thumbnail_meta_position.after( $post_thumbnail_meta );
+					$post_thumbnail_meta_position = null;
+				}
 			}
 		},
 

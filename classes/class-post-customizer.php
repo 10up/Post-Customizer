@@ -135,14 +135,16 @@ class Post_Customizer {
 								</li>
 							</ul>
 						</li>
-						<li id="accordion-section-colors" class="control-section accordion-section">
-							<h3 class="accordion-section-title" tabindex="0"><?php _e( 'Post Thumbnail', 'post-customizer' ); ?></h3>
-							<ul class="accordion-section-content">
-								<li id="customize-control-thumbnail" class="customize-control customize-control-thumbnail">
-									<div class="post-thumbnail-container"></div>
-								</li>
-							</ul>
-						</li>
+						<?php if ( current_theme_supports( 'post-thumbnails' ) ) : ?>
+							<li id="accordion-section-colors" class="control-section accordion-section">
+								<h3 class="accordion-section-title" tabindex="0"><?php _e( 'Post Thumbnail', 'post-customizer' ); ?></h3>
+								<ul class="accordion-section-content">
+									<li id="customize-control-thumbnail" class="customize-control customize-control-thumbnail">
+										<div class="post-thumbnail-container"></div>
+									</li>
+								</ul>
+							</li>
+						<?php endif; ?>
 					</ul>
 				</div>
 			</div>
@@ -188,6 +190,7 @@ class Post_Customizer {
 			'is_list_table' => ( $hook == 'edit.php' ) ? 1 : 0,
 			'ajaxURL'   => admin_url( 'admin-ajax.php' ),
 			'ajaxNonce' => wp_create_nonce( 'post-customizer' ),
+			'post_thumbnails_enabled' => ( current_theme_supports( 'post-thumbnails' ) ) ? 1 : 0,
 		);
 		wp_localize_script( 'post-customizer', 'Post_Customizer_Data', $post_customizer_data );
 

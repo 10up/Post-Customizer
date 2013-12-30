@@ -10,13 +10,14 @@
 			this.set( 'localizedData', attributes.localizedData );
 		},
 
-		showCustomizer : function( data ) {
+		showCustomizer : function( post_id ) {
 			if( customizerModel !== null ) {
 				customizerModel.closeCustomizer();
 			}
 
 			customizerModel = new Post_Customizer.Models.Customizer( {
-				localizedData : this.get( 'localizedData' )
+				localizedData : this.get( 'localizedData' ),
+				postID : post_id,
 			} );
 			customizerModel.openCustomizer();
 		},

@@ -131,10 +131,7 @@ class Post_Customizer {
 							<h3 class="accordion-section-title" tabindex="0"><?php _e( 'Excerpt', 'post-customizer' ); ?></h3>
 							<ul class="accordion-section-content">
 								<li id="customize-control-excerpt" class="customize-control customize-control-textarea">
-									<label>
-										<span class="customize-control-excerpt"><?php _e( 'Excerpt:', 'post-customizer' ); ?></span>
-										<textarea name="post_excerpt" id="post_excerpt"><?php echo get_the_excerpt(); ?></textarea>
-									</label>
+									<textarea name="post_excerpt" id="post_excerpt"><?php echo $post->post_excerpt; ?></textarea>
 								</li>
 							</ul>
 						</li>
@@ -173,7 +170,7 @@ class Post_Customizer {
 	 * @param string $hook The hook name.
 	 */
 	public function action_admin_enqueue_scripts( $hook ) {
-		if ( 'post.php' != $hook && 'post-new.php' != $hook )
+		if ( 'post.php' != $hook && 'post-new.php' != $hook && 'edit.php' != $hook )
 			return;
 
 		$base = plugins_url( '', dirname( __FILE__ ) );
@@ -188,6 +185,7 @@ class Post_Customizer {
 			'style_url' => admin_url( 'css/customize-controls.css' ),
 			'post_id'   => get_the_ID(),
 			'admin_url' => admin_url(),
+			'is_list_table' => ( $hook == 'edit.php' ) ? 1 : 0,
 			'ajaxURL'   => admin_url( 'admin-ajax.php' ),
 			'ajaxNonce' => wp_create_nonce( 'post-customizer' ),
 		);

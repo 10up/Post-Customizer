@@ -22,7 +22,7 @@
 		 * @returns {string}
 		 */
 		buildPreviewURL : function() {
-			var post_id = document.getElementById( 'post_ID' ).value;
+			var post_id = this.get( 'postID' );
 			var data = this.get( 'localizedData' );
 			return data.admin_url + 'admin-post.php?action=weiverp&p=' + post_id;
 		},
@@ -43,7 +43,7 @@
 				type : 'POST',
 				dataType : 'JSON',
 				data : {
-					post_id: data.post_id,
+					post_id: this.get( 'postID' ),
 					action : 'post-customizer',
 					post_customizer_action: 'get_sidebar',
 					_ajax_nonce : data.ajaxNonce

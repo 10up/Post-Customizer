@@ -49,6 +49,7 @@
 						var message = {
 							type : 'saveComplete',
 							newTitle : $( '.post-customizer-title' ).html(),
+							newContent : $( '.post-customizer-content' ).html(),
 						};
 
 						window.parent.postMessage( message, '*' );

@@ -12,6 +12,9 @@
 	var $overlay = null;
 	var $spinner = null;
 	var $post_title = null;
+	var $admin_post_title = null;
+	var $admin_post_content = null;
+	var $admin_post_excerpt = null;
 	var save_deferred = null;
 
 	Post_Customizer.Views.Sidebar = Backbone.View.extend( {
@@ -67,9 +70,23 @@
 			if ( message.type == 'requestExcerpt' ) {
 				this.sendExcerpt();
 			} else if ( message.type == 'saveComplete' ) {
-				$post_title.html( message.newTitle );
+				this.updateScreens( message );
 				save_deferred.resolve();
 			}
+		},
+
+		updateScreens : function( message ) {
+			$post_title.html( message.newTitle );
+
+			$admin_post_title.val( message.newTitle );
+
+			if ( tinymce.editors['content'] ) {
+				tinymce.editors['content'].setContent( message.newContent );
+			}
+
+			$admin_post_content.val( message.newContent );
+
+			$admin_post_excerpt.val( $excerpt_input.val() );
 		},
 
 		sendExcerpt : function() {
@@ -120,6 +137,9 @@
 
 			$spinner = this.$el.find( '.update-spinner' );
 			$post_title = this.$el.find( '#customize-title .post-title' );
+			$admin_post_title = $( '#title' );
+			$admin_post_content = $( '#content' );
+			$admin_post_excerpt = $( '#excerpt' );
 		},
 
 		onCloseCustomizerClick : function( event ) {
